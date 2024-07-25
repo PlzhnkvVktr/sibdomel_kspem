@@ -18,7 +18,8 @@ fun Header(
             .fillMaxWidth()
     ) {
         HeaderButton("Испытания", MainScreen())
-        HeaderButton("Объкт испытания", EditorOIScreen())
+        HeaderButton("Объкты испытания", EditorOIScreen())
+        HeaderButton("Марки стали", EditorMarkSteelScreen())
         HeaderButton("Протоколы", ProtocolScreen())
         if (isAdmin) {
             HeaderButton("Пользователи", SettingsScreen())

@@ -10,7 +10,6 @@ import ru.avem.common.af
 import ru.avem.common.repos.AppConfig
 import ru.avem.db.TestItem
 import ru.avem.kspem.devices.parma.ParmaController
-import ru.avem.kspem.devices.parma.ParmaModel
 import ru.avem.modules.common.logger.LogMessage
 import ru.avem.modules.common.logger.LogType
 import ru.avem.modules.devices.CM
@@ -24,10 +23,12 @@ import ru.avem.modules.devices.owen.pr.PR
 import ru.avem.modules.tests.utils.ms
 import ru.avem.modules.tests.utils.toDoubleOrDefault
 import ru.avem.modules.devices.avem.avem9.AVEM9
+import ru.avem.modules.tests.tl.cosB
+import ru.avem.modules.tests.tl.u_b
 import ru.avem.viewmodels.TestScreenViewModel
-import java.lang.Thread.sleep
 import java.text.SimpleDateFormat
 import kotlin.experimental.and
+import kotlin.math.abs
 
 object CustomController {
     val pr102 = CM.getDeviceByID<PR>(CM.DeviceID.DD2_1)
@@ -60,6 +61,9 @@ object CustomController {
     var voltage = 0.0
     var setVoltage = 0.0
     var latrEndsState = 0
+
+    var izmState = false
+    var indState = false
 
     val logMessages = mutableStateListOf<LogMessage>()
     var isStartButton = mutableStateOf(false)
@@ -101,6 +105,7 @@ object CustomController {
 
     suspend fun checkLatrZero() {
         var latrTimer = 300
+        ATR.resetLATR()
         while (voltOnATR > 10 && isTestRunning.value) {
             delay(100)
             latrTimer--
@@ -141,12 +146,15 @@ object CustomController {
             CM.startPoll(CM.DeviceID.DD2_1.name, pr102.model.DI_01_16_RAW) { value ->
                 isStartPressed.value = value.toShort() and 1 < 1  // 1  // TODO инвертировать обратно
                 isStopPressed.value = value.toShort() and 2 > 0   // 2
-                doorZone.value = value.toShort() and 4 > 0   // 3
+                doorZone.value = value.toShort() and 4 < 1   // 3
 //                             = value.toShort() and 8 > 0   // 4
-                doorSCO.value = value.toShort() and 16 > 0  // 5
+                doorSCO.value = value.toShort() and 16 < 1  // 5
                 ikzTI.value = value.toShort() and 32 < 1 || stateLock // 6
                 ikzVIU.value = value.toShort() and 64 < 1  // 7
 //                             = value.toShort() and 128 > 0 // 8
+                izmState = value.toShort() and 1024 > 0
+                indState = value.toShort() and 2048 > 0
+
             }
             delay(1000)
             scope.launch {
@@ -213,7 +221,7 @@ object CustomController {
                 isTestRunning.value = false
             } else {
                 CM.startPoll(CM.DeviceID.PA62.name, AVEM7Model.AMPERAGE) { value ->
-                    vm.testItem.ikas_v.value = (value.toDouble()).af()
+                    vm.testItem.ikas_i.value = (value.toDouble()).af()
                     if (!pa62.isResponding) {
                         appendMessageToLog("PV21 не отвечает", LogType.ERROR)
                     }
@@ -287,6 +295,13 @@ object CustomController {
             appendMessageToLog("PM130 не отвечает", LogType.ERROR)
             isTestRunning.value = false
         }
+        CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.U_B_REGISTER) { value ->
+            vm.u_a.value = (value.toDouble() * ktrVoltage).af()
+            if (!parma41.isResponding && isTestRunning.value) {
+                appendMessageToLog("PM130 не отвечает", LogType.ERROR)
+                isTestRunning.value = false
+            }
+        }
         CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.U_AB_REGISTER) { value ->
             vm.u_uv.value = (value.toDouble() * ktrVoltage).af()
             if (value.toDouble() * ktrVoltage > testObject.u_linear.toInt() * 1.1) {
@@ -318,12 +333,42 @@ object CustomController {
         }
         CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.I_A_REGISTER) {
             vm.i_u.value = (it.toDouble() * ktrAmperage).af()
+            if (isTestRunning.value) {
+                if (it.toDouble() > 6.0) {
+                    appendMessageToLog("Превышено допустимое значение тока")
+                    isTestRunning.value = false
+                }
+            }
         }
         CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.I_B_REGISTER) {
             vm.i_v.value = (it.toDouble() * ktrAmperage).af()
+            if (isTestRunning.value) {
+                if (it.toDouble() > 6.0) {
+                    appendMessageToLog("Превышено допустимое значение тока")
+                    isTestRunning.value = false
+                }
+            }
         }
         CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.I_C_REGISTER) {
             vm.i_w.value = (it.toDouble() * ktrAmperage).af()
+            if (isTestRunning.value) {
+                if (it.toDouble() > 6.0) {
+                    appendMessageToLog("Превышено допустимое значение тока")
+                    isTestRunning.value = false
+                }
+            }
+        }
+        CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.COS_REGISTER) {
+            vm.cos.value = abs(it.toDouble()).af()
+        }
+        CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.COS_A_REGISTER) {
+            cosB = it.toDouble()
+        }
+        CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.U_A_REGISTER) {
+            u_b = it.toDouble()
+        }
+        CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.P_A_REGISTER) {
+            vm.pA.value = abs(it.toDouble() * ktrAmperage * ktrVoltage).af()
         }
     }
 //        if (P1 != null) {

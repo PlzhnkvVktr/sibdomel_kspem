@@ -4,6 +4,7 @@ import androidx.compose.ui.res.useResource
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import ru.avem.common.ProtocolBuilder
+import ru.avem.data.enums.TestEnum
 import ru.avem.utils.copyFileFromStream
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -18,13 +19,13 @@ fun saveProtocolAsWorkbook(protocol: ProtocolBuilder, path: String = "cfg/lastOp
         Files.createDirectories(Paths.get("cfg"))
     }
     val template = File(path)
-    if (File("protocol.xlsx").exists()) {
-        copyFileFromStream(File("protocol.xlsx").inputStream(), template)
+    if (File("cfg\\protocol.xlsx").exists()) {
+        copyFileFromStream(File("cfg/protocol.xlsx").inputStream(), template)
     } else {
         useResource("protocol.xlsx") {
-            copyFileFromStream(it, File("protocol.xlsx"))
+            copyFileFromStream(it, File("cfg/protocol.xlsx"))
         }
-        copyFileFromStream(File("protocol.xlsx").inputStream(), template)
+        copyFileFromStream(File("cfg/protocol.xlsx").inputStream(), template)
     }
 
     try {
@@ -47,14 +48,11 @@ fun saveProtocolAsWorkbook(protocol: ProtocolBuilder, path: String = "cfg/lastOp
                                 "#V2#" -> cell.setCellValue(("vibroF"))
                                 "#T1#" -> cell.setCellValue(("t"))
                                 "#T2#" -> cell.setCellValue(("tI"))
-                                "#VIUNAME#" -> cell.setCellValue(("viu"))
-                                "#MGRNAME#" -> cell.setCellValue(("mgr"))
-                                "#IKASNAME#" -> cell.setCellValue(("ikas"))
-                                "#HHNAME#" -> cell.setCellValue(("hh"))
-                                "#KZNAME#" -> cell.setCellValue(("kz"))
-                                "#TRNAME#" -> cell.setCellValue(("trRatio"))
-                                "#MVNAME#" -> cell.setCellValue(("mv"))
-                                "#RUNNINGNAME#" -> cell.setCellValue(("n"))
+                                "#VIUNAME#" -> cell.setCellValue(TestEnum.nameVIU.testName)
+                                "#MGRNAME#" -> cell.setCellValue(TestEnum.nameMGR.testName)
+                                "#IKASNAME#" -> cell.setCellValue(TestEnum.nameIKAS.testName)
+                                "#HHNAME#" -> cell.setCellValue(TestEnum.nameHHandMVZ.testName)
+                                "#TLNAME#" -> cell.setCellValue(TestEnum.nameTL.testName)
                                 "#RESULT#" -> cell.setCellValue(("res"))
                                 "#BEFORE#" -> cell.setCellValue(("values before"))
                                 "#AFTER#" -> cell.setCellValue(("values after"))
@@ -88,50 +86,40 @@ fun saveProtocolAsWorkbook(protocol: ProtocolBuilder, path: String = "cfg/lastOp
                                 "#SCHEME#" -> cell.setCellValue(if (protocol.scheme.toBoolean()) "∆" else "λ")
                                 //MGR
 //                                "#MGRNAME#" -> cell.setCellValue(protocol.R15)
-                                "#MGRU#" -> cell.setCellValue(protocol.u_1)
-                                "#MGRR15#" -> cell.setCellValue(protocol.r15_1)
-                                "#MGRR60#" -> cell.setCellValue(protocol.r60_1)
-                                "#MGRKABS#" -> cell.setCellValue(protocol.kABS_1)
-                                "#MGRTEMP#" -> cell.setCellValue(protocol.mgrT_1)
-                                "#MGRRESULT#" -> cell.setCellValue(protocol.mgrResult_1)
 
-                                "#MGRU#" -> cell.setCellValue(protocol.u_2)
-                                "#MGRR15#" -> cell.setCellValue(protocol.r15_2)
-                                "#MGRR60#" -> cell.setCellValue(protocol.r60_2)
-                                "#MGRKABS#" -> cell.setCellValue(protocol.kABS_2)
-                                "#MGRTEMP#" -> cell.setCellValue(protocol.mgrT_2)
-                                "#MGRRESULT#" -> cell.setCellValue(protocol.mgrResult_2)
 
-                                "#MGRU#" -> cell.setCellValue(protocol.u_3)
-                                "#MGRR15#" -> cell.setCellValue(protocol.r15_3)
-                                "#MGRR60#" -> cell.setCellValue(protocol.r60_3)
-                                "#MGRKABS#" -> cell.setCellValue(protocol.kABS_3)
-                                "#MGRTEMP#" -> cell.setCellValue(protocol.mgrT_3)
-                                "#MGRRESULT#" -> cell.setCellValue(protocol.mgrResult_3)
-//                                //VIU
-//                                "#VIUNAME#" -> cell.setCellValue(protocol.R15)
-//                                "#VIUU#" -> cell.setCellValue(protocol.viuU)
-//                                "#VIUI#" -> cell.setCellValue(protocol.viuI)
-//                                "#VIUTIME#" -> cell.setCellValue(protocol.viuTime)
-//                                "#VIURESULT#" -> cell.setCellValue(protocol.viuResult)
-//                                //IKAS
-//                                "#IKASDEV#" -> cell.setCellValue(protocol.deviationIkas)
-//                                "#IKASR1#" -> cell.setCellValue(protocol.Ruv1)
-//                                "#IKASR2#" -> cell.setCellValue(protocol.Rvw1)
-//                                "#IKASR3#" -> cell.setCellValue(protocol.Rwu1)
-//                                "#IKASR11#" -> cell.setCellValue(protocol.Ruv2)
-//                                "#IKASR21#" -> cell.setCellValue(protocol.Rvw2)
-//                                "#IKASR31#" -> cell.setCellValue(protocol.Rwu2)
-//                                "#IKASRESULT#" -> cell.setCellValue(protocol.ikasResult)
-//                                //HH
-//                                "#HHNAME#" -> cell.setCellValue(protocol.R15)
-//                                "#HHUAB#" -> cell.setCellValue(protocol.hhUAB)
-//                                "#HHUBC#" -> cell.setCellValue(protocol.hhUBC)
-//                                "#HHUCA#" -> cell.setCellValue(protocol.hhUCA)
+
+
+                                "#MGRU#" -> cell.setCellValue(protocol.specifiedMgrU)
+                                "#MGRR15#" -> cell.setCellValue(protocol.r15)
+                                "#MGRR60#" -> cell.setCellValue(protocol.r60)
+                                "#MGRKABS#" -> cell.setCellValue(protocol.kABS)
+                                "#MGRTEMP#" -> cell.setCellValue(protocol.mgrT)
+                                "#MGRRESULT#" -> cell.setCellValue(protocol.mgrResult)
+
+                                //VIU
+                                "#VIUU#" -> cell.setCellValue(protocol.u_viu)
+                                "#VIUI#" -> cell.setCellValue(protocol.i_viu)
+                                "#VIUTIME#" -> cell.setCellValue(protocol.t_viu)
+                                "#VIURESULT#" -> cell.setCellValue(protocol.viuResult)
+                                //IKAS
+                                "#IKASDEV#" -> cell.setCellValue(protocol.deviation)
+                                "#IKASR1#" -> cell.setCellValue(protocol.r_uv_ikas)
+                                "#IKASR2#" -> cell.setCellValue(protocol.r_vw_ikas)
+                                "#IKASR3#" -> cell.setCellValue(protocol.r_wu_ikas)
+                                "#IKASR11#" -> cell.setCellValue(protocol.calc_u_ikas)
+                                "#IKASR21#" -> cell.setCellValue(protocol.calc_v_ikas)
+                                "#IKASR31#" -> cell.setCellValue(protocol.calc_w_ikas)
+                                "#IKASRESULT#" -> cell.setCellValue(protocol.ikasResult)
+
+                                //HH
+                                "#HHUAB#" -> cell.setCellValue(protocol.u_uv_hh)
+                                "#HHUBC#" -> cell.setCellValue(protocol.u_vw_hh)
+                                "#HHUCA#" -> cell.setCellValue(protocol.u_wu_hh)
 //                                "#HHUOV#" -> cell.setCellValue(protocol.hhUOV)
-//                                "#HHIA#" -> cell.setCellValue(protocol.hhIA)
-//                                "#HHIB#" -> cell.setCellValue(protocol.hhIB)
-//                                "#HHIC#" -> cell.setCellValue(protocol.hhIC)
+                                "#HHIA#" -> cell.setCellValue(protocol.i_u_hh)
+                                "#HHIB#" -> cell.setCellValue(protocol.i_v_hh)
+                                "#HHIC#" -> cell.setCellValue(protocol.i_w_hh)
 //                                "#HHIOV#" -> cell.setCellValue(protocol.hhIOV)
 //                                "#HHTEMPTI#" -> cell.setCellValue(protocol.hhTempTI)
 //                                "#HHTEMPAMB#" -> cell.setCellValue(protocol.hhTempAmb)
@@ -140,23 +128,25 @@ fun saveProtocolAsWorkbook(protocol: ProtocolBuilder, path: String = "cfg/lastOp
 //                                "#HHVIBRO2#" -> cell.setCellValue(protocol.hhVibro2)
 //                                "#HHTIME#" -> cell.setCellValue(protocol.hhTime)
 //                                "#HHP1#" -> cell.setCellValue(protocol.hhP1)
-//                                "#HHCOS#" -> cell.setCellValue(protocol.hhCos)
-//                                "#HHRESULT#" -> cell.setCellValue(protocol.hhResult)
-//                                //TR
-//                                "#TRNAME#" -> cell.setCellValue(protocol.R15)
-//                                "#TRUAB#" -> cell.setCellValue(protocol.trUAB)
-//                                "#TRUBC#" -> cell.setCellValue(protocol.trUBC)
-//                                "#TRUCA#" -> cell.setCellValue(protocol.trUCA)
-//
-//                                "#TRUAB1#" -> cell.setCellValue(protocol.trUAB1)
-//                                "#TRUBC1#" -> cell.setCellValue(protocol.trUBC1)
-//                                "#TRUCA1#" -> cell.setCellValue(protocol.trUCA1)
-//                                "#TRUAB2#" -> cell.setCellValue(protocol.trUAB2)
-//                                "#TRUBC2#" -> cell.setCellValue(protocol.trUBC2)
-//                                "#TRUCA2#" -> cell.setCellValue(protocol.trUCA2)
-//                                "#TRCALCUAB#" -> cell.setCellValue(protocol.trCalcUAB)
-//                                "#TRCALCUBC#" -> cell.setCellValue(protocol.trCalcUBC)
-//                                "#TRCALCUCA#" -> cell.setCellValue(protocol.trCalcUCA)
+                                "#HHCOS#" -> cell.setCellValue(protocol.cos_hh)
+                                "#HHRESULT#" -> cell.setCellValue(protocol.hhResult)
+
+
+                                //TL
+                                "#TLUSET#" -> cell.setCellValue(protocol.u_set_tl)
+                                "#TLUIZM#" -> cell.setCellValue(protocol.u_izm_tl)
+                                "#TLUI#" -> cell.setCellValue(protocol.i_u_tl)
+                                "#TLP#" -> cell.setCellValue(protocol.p_tl)
+                                "#TLIND#" -> cell.setCellValue(protocol.induction_tl)
+                                "#TLP#" -> cell.setCellValue(protocol.p_steel_tl)
+                                "#TLINT#" -> cell.setCellValue(protocol.intensity_tl)
+                                "#TLLOS#" -> cell.setCellValue(protocol.losses_tl)
+
+//                                "#TLUCA2#" -> cell.setCellValue(protocol.trUCA2)
+//                                "#TLCALCUAB#" -> cell.setCellValue(protocol.trCalcUAB)
+//                                "#TLCALCUBC#" -> cell.setCellValue(protocol.trCalcUBC)
+//                                "#TLCALCUCA#" -> cell.setCellValue(protocol.trCalcUCA)
+                                "#TLRESULT#" -> cell.setCellValue(protocol.tlResult)
 
 //                                "#TRUOV#" -> cell.setCellValue(protocol.trUOV)
 //                                "#TRIA#" -> cell.setCellValue(protocol.trIA)
@@ -171,7 +161,6 @@ fun saveProtocolAsWorkbook(protocol: ProtocolBuilder, path: String = "cfg/lastOp
 ////                                "#TRTIME#" -> cell.setCellValue(protocol.trTime)
 //                                "#TRP1#" -> cell.setCellValue(protocol.trP1)
 //                                "#TRCOS#" -> cell.setCellValue(protocol.trCos)
-//                                "#TRRESULT#" -> cell.setCellValue(protocol.trResult)
 //                                //KZ
 //                                "#KZNAME#" -> cell.setCellValue(protocol.R15)
 //                                "#KZUAB#" -> cell.setCellValue(protocol.kzUAB)

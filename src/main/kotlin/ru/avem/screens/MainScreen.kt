@@ -1,6 +1,10 @@
 package ru.avem.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.onClick
+import androidx.compose.foundation.onFocusedBoundsChanged
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -8,8 +12,13 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.model.rememberScreenModel
@@ -17,9 +26,15 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import ru.avem.components.*
+import ru.avem.utils.kb
+import ru.avem.utils.openKeyboard
 import ru.avem.viewmodels.MainScreenViewModel
+import java.awt.Desktop
+import java.nio.file.Paths
 
 class MainScreen() : Screen {
+
+    @OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
     @Composable
     override fun Content() {
 
@@ -57,7 +72,9 @@ class MainScreen() : Screen {
 
                         OutlinedTextField(
                             value = viewModel.factoryNumber.value,
-                            modifier = Modifier.fillMaxWidth(0.8f),
+                            modifier = Modifier
+                                .fillMaxWidth(0.8f)
+                                .kb(),
                             textStyle = MaterialTheme.typography.h5,
                             placeholder =  {
                                 Text(

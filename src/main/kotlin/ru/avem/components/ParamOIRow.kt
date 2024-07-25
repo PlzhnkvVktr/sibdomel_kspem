@@ -1,6 +1,7 @@
 package ru.avem.components
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -22,7 +23,7 @@ fun ParamOIRow(
                 || param.value == ""
                 || param.value.toList().last().toString() == "."
 
-    item.isError.value = validateParam(item.param)
+    item.isError.value = if (!item.isString) validateParam(item.param) else item.param.value.isEmpty()
 
     Row(
         modifier = Modifier.fillMaxWidth().height(60.dp).padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp),
@@ -39,22 +40,29 @@ fun ParamOIRow(
         ) {
             OutlinedTextField(
                 value = item.param.value,
-                modifier = Modifier.fillMaxWidth().height(50.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
                     .border(2.dp, if (item.isError.value) Color.Red else Color.Green),
                 textStyle = MaterialTheme.typography.body1,
                 placeholder = {
                     Text(
-                        text = "min: ${item.min}, max: ${item.max}",
+                        text = if (!item.isString) "min: ${item.min}, max: ${item.max}" else "Введите значение",
                         style = MaterialTheme.typography.caption,
                     )
                 },
                 isError = validateParam(item.param),
                 onValueChange = {
+                    if (item.isString) {
+                        item.param.value = it
+                    } else {
                         if (it.isEmpty()) item.param.value = it
                         it.toDoubleOrNull()?.let { value ->
                             item.isError.value = value in (item.min.toDouble()..item.max.toDouble())
                             item.param.value = it
                         }
+                    }
+
                 },
             )
         }

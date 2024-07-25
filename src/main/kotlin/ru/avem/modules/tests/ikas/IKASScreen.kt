@@ -96,6 +96,17 @@ class IKASScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                     )
                     LogsList(viewModel.loggerScope)
                 }
+                if (viewModel.isDialog.value) {
+                TestDialog(
+                    "икас",
+                    true,
+                    { viewModel.isDialog.value = false },
+                    {
+                        isTestRunning.value = false
+                        viewModel.isDialog.value = false
+                    }
+                )
+            }
                 if (isStartButton.value) {
                     TestDialog()
                 }

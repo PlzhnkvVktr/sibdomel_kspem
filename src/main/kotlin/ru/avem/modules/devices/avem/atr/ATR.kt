@@ -210,8 +210,8 @@ class ATR(
     fun startUpLATRPulse(voltage: Float, timePulsePercent: Float) {
         val corridor = 0.01f
         val delta = 0.01f
-        val timeMinPeriod = 100.0f
-        val timeMaxPeriod = 100.0f
+        val timeMinPeriod = 140.0f
+        val timeMaxPeriod = 140.0f
         val minVoltage = 0.1f
         val minDuttyPercent = 100f
         val maxDuttyPercent = 100f

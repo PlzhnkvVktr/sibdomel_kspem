@@ -1,26 +1,19 @@
 package ru.avem.modules.tests.ikas
 
-import androidx.compose.runtime.MutableState
 import kotlinx.coroutines.delay
-import ru.avem.common.ProtocolBuilder
 import ru.avem.common.af
 import ru.avem.db.TestItem
-import ru.avem.modules.models.SelectedTestObject
-import ru.avem.modules.common.logger.LogType
 import ru.avem.modules.devices.avem.avem4.AVEM4Model
 import ru.avem.modules.devices.avem.avem7.AVEM7Model
 import ru.avem.modules.tests.CustomController
 import ru.avem.modules.tests.CustomController.appendMessageToLog
 import ru.avem.modules.tests.CustomController.initAVEM4
 import ru.avem.modules.tests.CustomController.initAVEM7
-import ru.avem.modules.tests.CustomController.isStartButton
-import ru.avem.modules.tests.CustomController.isStartPressed
 import ru.avem.modules.tests.CustomController.isTestRunning
 import ru.avem.modules.tests.CustomController.pa62
 import ru.avem.modules.tests.CustomController.pr102
 import ru.avem.modules.tests.CustomController.pv61
-import ru.avem.modules.tests.Test
-import ru.avem.modules.tests.utils.waitingСonfirm
+import ru.avem.modules.tests.CustomController.testObject
 import ru.avem.viewmodels.TestScreenViewModel
 import java.util.*
 import kotlin.math.abs
@@ -33,7 +26,7 @@ suspend fun TestScreenViewModel.startMeasurementIKAS() {
         initAVEM4(this)
         initAVEM7(this)
         if (isTestRunning.value) {
-            resistanceAB = meas(warningUV, 1)
+            resistanceAB = meas(1)
             if (resistanceAB.isNaN()) {
                 testItem.r_uv_ikas.value = "Обрыв"
             } else {
@@ -41,7 +34,7 @@ suspend fun TestScreenViewModel.startMeasurementIKAS() {
             }
         }
         if (isTestRunning.value) {
-            resistanceBC = meas(warningVW, 2)
+            resistanceBC = meas(2)
             if (resistanceBC.isNaN()) {
                 testItem.r_vw_ikas.value = "Обрыв"
             } else {
@@ -50,7 +43,7 @@ suspend fun TestScreenViewModel.startMeasurementIKAS() {
         }
 
         if (isTestRunning.value) {
-            resistanceCA = meas(warningWU, 3)
+            resistanceCA = meas(3)
             if (resistanceCA.isNaN()) {
                 testItem.r_wu_ikas.value = "Обрыв"
             } else {
@@ -58,70 +51,72 @@ suspend fun TestScreenViewModel.startMeasurementIKAS() {
             }
         }
 
+        this.calcRs(resistanceAB, resistanceBC, resistanceCA, CustomController.testObject)
+
     } else {
         isTestRunning.value = false
     }
 }
 
-//private fun TestScreenViewModel.calcRs(
-//    resistanceAB: Double,
-//    resistanceBC: Double,
-//    resistanceCA: Double,
-//    ti: TestItem
-//) {
-//
-//    val tempRatio = 0.00425
-//
-//    if (testItem.r_uv_ikas.value == "Обрыв" ||
-//        testItem.r_vw_ikas.value == "Обрыв" ||
-//        testItem.r_wu_ikas.value == "Обрыв"
-//    ) {
-//        testItem.calc_uv_ikas.value = "Обрыв"
-//        testItem.calc_vw_ikas.value = "Обрыв"
-//        testItem.calc_wu_ikas.value = "Обрыв"
-//
-//    } else {
-//        if (!ti.scheme) {//TODO указать схему звезда
-//            testItem.calc_uv_ikas.value = "%.3f".format(Locale.ENGLISH, ((resistanceCA + resistanceAB - resistanceBC) / 2.0))
-//            testItem.calc_vw_ikas.value = "%.3f".format(Locale.ENGLISH, ((resistanceAB + resistanceBC - resistanceCA) / 2.0))
-//            testItem.calc_wu_ikas.value = "%.3f".format(Locale.ENGLISH, ((resistanceBC + resistanceCA - resistanceAB) / 2.0))
-//        } else {
-//            testItem.calc_uv_ikas.value =
-//                "%.3f".format(
-//                    Locale.ENGLISH,
-//                    (2.0 * resistanceAB * resistanceBC / (resistanceAB + resistanceBC - resistanceCA) - (resistanceAB + resistanceBC - resistanceCA) / 2.0)
-//                )
-//            testItem.calc_vw_ikas.value =
-//                "%.3f".format(
-//                    Locale.ENGLISH,
-//                    (2.0 * resistanceBC * resistanceCA / (resistanceBC + resistanceCA - resistanceAB) - (resistanceBC + resistanceCA - resistanceAB) / 2.0)
-//                )
-//            testItem.calc_wu_ikas.value =
-//                "%.3f".format(
-//                    Locale.ENGLISH,
-//                    (2.0 * resistanceCA * resistanceAB / (resistanceCA + resistanceAB - resistanceBC) - (resistanceCA + resistanceAB - resistanceBC) / 2.0)
-//                )
-//        }
-//        testItem.deviation.value =
-//            ((maxOf(testItem.calc_uv_ikas.value, testItem.calc_vw_ikas.value, testItem.calc_wu_ikas.value).toDouble() - minOf(testItem.calc_uv_ikas.value, testItem.calc_vw_ikas.value, testItem.calc_wu_ikas.value).toDouble())
-//                    / maxOf(testItem.calc_uv_ikas.value, testItem.calc_vw_ikas.value, testItem.calc_wu_ikas.value).toDouble() * 100).af()
-//
+private fun TestScreenViewModel.calcRs(
+    resistanceAB: Double,
+    resistanceBC: Double,
+    resistanceCA: Double,
+    ti: TestItem
+) {
+
+    val tempRatio = 0.00425
+
+    if (testItem.r_uv_ikas.value == "Обрыв" ||
+        testItem.r_vw_ikas.value == "Обрыв" ||
+        testItem.r_wu_ikas.value == "Обрыв"
+    ) {
+        testItem.calc_u_ikas.value = "Обрыв"
+        testItem.calc_v_ikas.value = "Обрыв"
+        testItem.calc_w_ikas.value = "Обрыв"
+
+    } else {
+        if (!ti.scheme) {//TODO указать схему звезда
+            testItem.calc_u_ikas.value = "%.3f".format(Locale.ENGLISH, ((resistanceCA + resistanceAB - resistanceBC) / 2.0))
+            testItem.calc_v_ikas.value = "%.3f".format(Locale.ENGLISH, ((resistanceAB + resistanceBC - resistanceCA) / 2.0))
+            testItem.calc_w_ikas.value = "%.3f".format(Locale.ENGLISH, ((resistanceBC + resistanceCA - resistanceAB) / 2.0))
+        } else {
+            testItem.calc_u_ikas.value =
+                "%.3f".format(
+                    Locale.ENGLISH,
+                    (2.0 * resistanceAB * resistanceBC / (resistanceAB + resistanceBC - resistanceCA) - (resistanceAB + resistanceBC - resistanceCA) / 2.0)
+                )
+            testItem.calc_v_ikas.value =
+                "%.3f".format(
+                    Locale.ENGLISH,
+                    (2.0 * resistanceBC * resistanceCA / (resistanceBC + resistanceCA - resistanceAB) - (resistanceBC + resistanceCA - resistanceAB) / 2.0)
+                )
+            testItem.calc_w_ikas.value =
+                "%.3f".format(
+                    Locale.ENGLISH,
+                    (2.0 * resistanceCA * resistanceAB / (resistanceCA + resistanceAB - resistanceBC) - (resistanceCA + resistanceAB - resistanceBC) / 2.0)
+                )
+        }
+        testItem.deviation.value =
+            ((maxOf(testItem.calc_u_ikas.value, testItem.calc_v_ikas.value, testItem.calc_w_ikas.value).toDouble() - minOf(testItem.calc_u_ikas.value, testItem.calc_v_ikas.value, testItem.calc_w_ikas.value).toDouble())
+                    / maxOf(testItem.calc_u_ikas.value, testItem.calc_v_ikas.value, testItem.calc_w_ikas.value).toDouble() * 100).af()
+
 //        val rA = abs(testItem.calc_uv_ikas.value.toDouble())
 //        val rB = abs(testItem.calc_vw_ikas.value.toDouble())
 //        val rC = abs(testItem.calc_wu_ikas.value.toDouble())
-//
+
 //        val t = viewModel.tempAmb.value.toDoubleOrDefault(0.0)
 //        val rtK = tempRatio // при 20°C
 //        val rtT = 20.0
-//
-//        viewModel.calcUV.value = "%.3f".format(Locale.ENGLISH, abs(rA / (1 + rtK * (t - rtT))))
-//        viewModel.calcVW.value = "%.3f".format(Locale.ENGLISH, abs(rB / (1 + rtK * (t - rtT))))
-//        viewModel.calcWU.value = "%.3f".format(Locale.ENGLISH, abs(rC / (1 + rtK * (t - rtT))))
-//
-//
-//
-//    }
-//}
+
+//        calcUV.value = "%.3f".format(Locale.ENGLISH, abs(rA / (1 + rtK * (t - rtT))))
+//        calcVW.value = "%.3f".format(Locale.ENGLISH, abs(rB / (1 + rtK * (t - rtT))))
+//        calcWU.value = "%.3f".format(Locale.ENGLISH, abs(rC / (1 + rtK * (t - rtT))))
+
+
+
+    }
+}
 
 //fun start(viewModel: IKASViewModel, testItemLine: MutableState<MutableIterator<SelectedTestObject>>) {
 //    viewModel.clearFields()
@@ -205,36 +200,36 @@ suspend fun TestScreenViewModel.startMeasurementIKAS() {
 //    }
 //}
 
-private suspend fun meas(trigger: MutableState<Boolean>, order: Int): Double {
+private suspend fun TestScreenViewModel.meas(order: Int): Double {
     pr102.ikasBa(false)
     pr102.ikasBc(false)
     pr102.ikasA(false)
     pr102.ikasC (false)
     var resistance: Double = Double.NaN
-    trigger.value = true
     delay(100)
-    waitingСonfirm(trigger)
-    isStartButton.value = true
-    while (!isStartPressed.value && isTestRunning.value) {
-        delay(100)
-    }
-    isStartButton.value = false
 
     if (isTestRunning.value) {
         when (order) {
-            1 -> pr102.ikasBa(true)
-            2 -> pr102.ikasBc(true)
+            1 -> {
+                pr102.ikasA(true)
+                pr102.ikasBa(true)
+            }
+            2 -> {
+                pr102.ikasBc(true)
+                pr102.ikasC (true)
+            }
             3 -> {
                 pr102.ikasA(true)
-                pr102.ikasC (true)
+                pr102.ikasC(true)
             }
         }
         delay(5000)
-        val voltage = abs(pv61.getRegisterById(AVEM4Model.RMS_VOLTAGE).value.toDouble())
-        val current = abs(pa62.getRegisterById(AVEM7Model.AMPERAGE).value.toDouble())
+        val voltage = abs(testItem.ikas_v.value.toDouble())
+        val current = abs(testItem.ikas_i.value.toDouble())
+        appendMessageToLog("v = $voltage --- i = $current")
         resistance = voltage / current
 
-        if (0.001 > current) {
+        if (current < 0.01) {
             resistance = Double.NaN
         }
     }

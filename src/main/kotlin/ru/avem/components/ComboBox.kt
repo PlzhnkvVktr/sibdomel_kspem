@@ -43,7 +43,7 @@ fun <T> ComboBox(
                 expandedState = true
             }.fillMaxWidth().height(64.dp),
         ) {
-            Text(selectedItem.value.toString(), modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.h5)
+            Text(selectedItem.value.toString(), modifier = Modifier.padding(10.dp), style = MaterialTheme.typography.h5)
             Icon(Icons.Filled.ArrowDropDown, contentDescription = null)
         }
         if (isEditable) {

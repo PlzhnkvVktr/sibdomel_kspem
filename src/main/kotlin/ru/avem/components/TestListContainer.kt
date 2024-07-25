@@ -11,11 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ru.avem.modules.tests.hh.HHScreen
-import ru.avem.modules.tests.ikas.IKASScreen
-import ru.avem.modules.tests.mgr.MGRScreen
-import ru.avem.modules.tests.mv.MVScreen
-import ru.avem.modules.tests.viu.VIUScreen
 import ru.avem.viewmodels.MainScreenViewModel
 
 @Composable

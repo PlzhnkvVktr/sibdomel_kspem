@@ -28,7 +28,7 @@ fun MGRTestWindow (viewModel: TestScreenViewModel) {
             TestWindowTitle("Номинальные параметры")
 
             Row(Modifier.background(Color.Gray)) {
-                TableCell(text = "U номинальное")
+                TableCell(text = "U номинальное, В")
             }
             Row() {
                 TableCell(text = viewModel.testItem.specifiedMgrU.value)
@@ -37,10 +37,10 @@ fun MGRTestWindow (viewModel: TestScreenViewModel) {
             TestWindowTitle("Измеренные значения")
 
             Row(Modifier.background(Color.Gray)) {
-                TableCell(text = "U")
-                TableCell(text = "R15, Ом")
-                TableCell(text = "R60, Ом")
-                TableCell(text = "Abs")
+                TableCell(text = "U, В")
+                TableCell(text = "R15, MОм")
+                TableCell(text = "R60, MОм")
+                TableCell(text = "kабс")
             }
             Row() {
                 TableCell(text = viewModel.testItem.mgrU.value)

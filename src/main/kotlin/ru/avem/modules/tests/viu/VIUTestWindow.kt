@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ru.avem.components.TableCell
+import ru.avem.components.TestWindowTitle
 import ru.avem.data.enums.TestEnum
 import ru.avem.viewmodels.TestScreenViewModel
 
@@ -23,22 +24,16 @@ fun VIUTestWindow (viewModel: TestScreenViewModel) {
         Column (
             modifier = Modifier.padding(bottom = 20.dp)
         ) {
-            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-                Text(text = TestEnum.nameVIU.testName, style = MaterialTheme.typography.h5)
-            }
+            TestWindowTitle(TestEnum.nameVIU.testName)
+            TestWindowTitle("Измеренные значения")
 
-            Row (modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
-                Text(text = "Измеренные значения", style = MaterialTheme.typography.h6)
-            }
             Row(Modifier.background(Color.Gray)) {
-                TableCell(text = "Наименование")
                 TableCell(text = "U, В")
                 TableCell(text = "I, мА")
                 TableCell(text = "t, сек")
                 TableCell(text = "Результат")
             }
             Row() {
-                TableCell(text = viewModel.testItem.name.value)
                 TableCell(text = viewModel.testItem.u_viu.value)
                 TableCell(text = viewModel.testItem.i_viu.value)
                 TableCell(text = viewModel.testItem.t_viu.value)

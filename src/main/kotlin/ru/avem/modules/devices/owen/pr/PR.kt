@@ -169,7 +169,7 @@ class PR(
         }
     }
 
-    fun i_max(stat: Boolean) {
+    fun i_max5(stat: Boolean) {
         if (stat) {
             onOutput01To16(2)
         } else {

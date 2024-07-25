@@ -1,10 +1,20 @@
 package ru.avem.utils
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.focus.onFocusEvent
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
+import ru.avem.isTablet
+import java.awt.Desktop
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.lang.Thread.sleep
+import java.lang.reflect.Modifier
+import java.nio.file.Paths
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,6 +41,8 @@ fun copyFileFromStream(_inputStream: InputStream, dest: File) {
         }
     }
 }
+
+
 
 fun getCurrentDate(): String = SimpleDateFormat("d MM yyyy").format(Date())
 fun getCurrentTime(): String = SimpleDateFormat("HH:mm:ss").format(Date())
@@ -66,6 +78,26 @@ fun String.hexStrToAsciiStr(): String {
     }
     return output.toString()
 }
+
+fun openKeyboard () {
+    if (isTablet) {
+        Desktop
+            .getDesktop()
+            .open(Paths.get("C:/Windows/system32/osk.exe").toFile())
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+fun androidx.compose.ui.Modifier.kb(): androidx.compose.ui.Modifier {
+    return onPointerEvent(PointerEventType.Press) {
+            if (isTablet) {
+                Desktop
+                    .getDesktop()
+                    .open(Paths.get("C:/Windows/system32/osk.exe").toFile())
+            }
+    }
+}
+
 
 fun trimByteArray(bytes: ByteArray): ByteArray? {
     var i = bytes.size - 1

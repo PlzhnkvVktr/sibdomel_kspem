@@ -42,7 +42,7 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
             if (isTestRunning.value) parma41.checkResponsibility()
             if (parma41.isResponding) {
 
-                CM.startPoll(CM.DeviceID.PAV41.name, CustomController.parma41.model.I_A_REGISTER) {
+                CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.I_A_REGISTER) {
                     i_viu = it.toDouble() * 1 / 5 * 1000.0
                     testItem.i_viu.value = i_viu.af()
                     if (i_viu > setI && isTestRunning.value) {
@@ -83,14 +83,14 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
             val devTimer = System.currentTimeMillis()
             appendMessageToLog("Подъём напряжения", LogType.MESSAGE)
             while ((voltage < setVoltage - 200) && isTestRunning.value) {
-                ATR.startUpLATRPulse(250f, 20f)
+                ATR.startUpLATRPulse(250f, 50f)
                 if (latrEndsState == 1) {
                     appendMessageToLog("Достигнуто максимальное напряжение АРН", LogType.ERROR)
                     isTestRunning.value = false
                     break
                 }
                 if (voltOnATR > 10) {
-                if (System.currentTimeMillis() - devTimer > 4000 && (voltOnATR * 2000.0 / 220.0) !in voltage * 0.6..voltage * 1.6) {
+                if (System.currentTimeMillis() - devTimer > 4000 && (voltOnATR * 4000.0 / 220.0) !in voltage * 0.6..voltage * 1.6) {
                     appendMessageToLog(
                         "${System.currentTimeMillis() - devTimer > 4000},${setVoltage}, ${CustomController.voltOnATR * 2000.0 / 220.0}, ${voltage * 0.6} - ${voltage * 1.6}",
                         LogType.ERROR
@@ -114,8 +114,8 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
                 }
                 delay(100)
             }
-            while ((voltage < setVoltage - 10) && isTestRunning.value) {
-                ATR.startUpLATRPulse(250f, 13f)
+            while ((voltage < setVoltage - 15) && isTestRunning.value) {
+                ATR.startUpLATRPulse(250f, 20f)
                 delay(100)
                 if (latrEndsState == 1) {
                     appendMessageToLog("Максимальное напряжение АРН", LogType.ERROR)
@@ -123,22 +123,23 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
                     break
                 }
                 if (voltOnATR > 10) {
-                if ((voltOnATR * 2000.0 / 220.0) !in voltage * 0.7..voltage * 1.6) {
-                    appendMessageToLog(
-                        "Несоответствие напряжение расчетного и измеренного напряжения ВИУ",
-                        LogType.ERROR
-                    )
-                    isTestRunning.value = false
-                }}
+                if ((voltOnATR * 4000.0 / 220.0) !in voltage * 0.7..voltage * 1.6) {
+                        appendMessageToLog(
+                            "Несоответствие напряжение расчетного и измеренного напряжения ВИУ",
+                            LogType.ERROR
+                        )
+                        isTestRunning.value = false
+                    }
+                }
             }
             ATR.stopLATR()
             if (!isTestRunning.value) {
                 testItem.res_viu.value = "Испытание прервано"
             }
-            delay(1000)
         }
 
         if (isTestRunning.value) {
+            delay(1000)
             appendMessageToLog("Выдержка напряжения", LogType.MESSAGE)
             var timer = setTime
             while (isTestRunning.value && timer > 0) {
@@ -154,13 +155,13 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
 //                addReport(viewModel)
 
 
+            if (isTestRunning.value) {
             sleepWhileRun(1.0)
             ATR.resetLATR()
             while (voltage > 100) {
                 delay(100)
             }
             delay(1000)
-
-
         }
+    }
 }

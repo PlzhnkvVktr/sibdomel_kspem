@@ -21,6 +21,7 @@ class ParmaModel : IDeviceModel {
     val P_A_REGISTER = "P_A_REGISTER"
     val P_B_REGISTER = "P_B_REGISTER"
     val P_C_REGISTER = "P_C_REGISTER"
+    val COS_A_REGISTER = "COS_A_REGISTER"
 
     enum class AdditionalParma(val isUShort: Boolean, val coeff: Double) {
         F_REGISTER(true, 50.0 / 50000),
@@ -40,6 +41,7 @@ class ParmaModel : IDeviceModel {
         P_B_REGISTER(false, 1100.0 / 11000),
         P_C_REGISTER(false, 1100.0 / 11000),
         COS_REGISTER(false, 1.0 / 10000),
+        COS_A_REGISTER(false, 1.0 / 10000)
     }
 
     override val registers: Map<String, DeviceRegister> = mapOf(
@@ -63,7 +65,8 @@ class ParmaModel : IDeviceModel {
         P_B_REGISTER to DeviceRegister(0x0010, DeviceRegister.RegisterValueType.SHORT),
         P_C_REGISTER to DeviceRegister(0x0011, DeviceRegister.RegisterValueType.SHORT),
 
-        COS_REGISTER to DeviceRegister(0x001D, DeviceRegister.RegisterValueType.SHORT)
+        COS_REGISTER to DeviceRegister(0x001D, DeviceRegister.RegisterValueType.SHORT),
+        COS_A_REGISTER to DeviceRegister(0x0018, DeviceRegister.RegisterValueType.SHORT)
     )
 
 

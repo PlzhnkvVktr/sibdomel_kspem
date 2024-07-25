@@ -3,6 +3,7 @@ package ru.avem.viewmodels
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +16,6 @@ import java.io.File
 import java.io.IOException
 
 class ProtocolScreenViewModel : ScreenModel {
-    private val scope = CoroutineScope(Dispatchers.Default)
     var protocolList = mutableStateListOf<TestProtocol>()
     var textFind = mutableStateOf("")
 
@@ -28,14 +28,14 @@ class ProtocolScreenViewModel : ScreenModel {
     }
 
     fun getProtocols() {
-        scope.launch {
+        screenModelScope.launch {
             protocolList.clear()
             protocolList.addAll(DBManager.getAllProtocols())
         }
     }
 
     fun performSearch(predicate: String) {
-        scope.launch {
+        screenModelScope.launch {
             val values = DBManager.findProtocol(predicate)
             protocolList.clear()
             protocolList.addAll(values)
@@ -43,7 +43,7 @@ class ProtocolScreenViewModel : ScreenModel {
     }
 
     fun deleteProtocol(protocol: TestProtocol) {
-        scope.launch {
+        screenModelScope.launch {
             DBManager.deleteProtocolItemByName1(protocol)
             protocolList.remove(protocol)
         }
@@ -59,7 +59,7 @@ class ProtocolScreenViewModel : ScreenModel {
 //    }
 
     fun saveExcel (protocol: TestProtocol) {
-        scope.launch {
+        screenModelScope.launch {
             ProtocolBuilder.fillProtocol(protocol)
             saveProtocolAsWorkbook(ProtocolBuilder)
             openFile(File("cfg/lastOpened.xlsx"))

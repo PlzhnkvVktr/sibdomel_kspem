@@ -4,7 +4,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -13,10 +16,10 @@ import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import ru.avem.components.*
-import ru.avem.db.DBManager.getAllTI
+import ru.avem.db.DBManager
 import ru.avem.viewmodels.EditorOIScreenViewModel
 
-class EditorOIScreen() : Screen {
+class EditorMarkSteelScreen(): Screen {
 
     @Composable
     override fun Content() {
@@ -25,7 +28,7 @@ class EditorOIScreen() : Screen {
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
 
         LifecycleEffect(
-            onStarted = viewModel::initTestTI
+            onStarted = viewModel::initSteelMark
         )
 
         Scaffold(
@@ -40,30 +43,30 @@ class EditorOIScreen() : Screen {
                         modifier = Modifier.fillMaxWidth(0.2f).fillMaxHeight(),
                         verticalArrangement = Arrangement.Center
                     ) {
-                        Text("Объект испытания")
+                        Text("Марки стали")
                         ComboBox(
-                            viewModel.selectedTI,
+                            viewModel.selectedSteelEditScreen,
                             modifier = Modifier.fillMaxWidth(),
-                            items = viewModel.typesTI,
-                            onClick = viewModel::initTestTI
+                            items = viewModel.typesSteelEditScreen,
+                            onClick = viewModel::initSteelMark
                         )
                         Row(
                             modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
                             horizontalArrangement = Arrangement.SpaceAround
                         ) {
                             Button(onClick = {
-                                viewModel.addNewTI.value = !viewModel.addNewTI.value
-                                if (viewModel.addNewTI.value) viewModel.clearFields() else viewModel.initTestTI()
+                                viewModel.addNewSteel.value = !viewModel.addNewSteel.value
+                                if (viewModel.addNewSteel.value) viewModel.clearFields() else viewModel.initSteelMark()
                             }) {
                                 Icon(
-                                    if (!viewModel.addNewTI.value) Icons.Filled.Add else Icons.Filled.ArrowBack,
+                                    if (!viewModel.addNewSteel.value) Icons.Filled.Add else Icons.Filled.ArrowBack,
                                     contentDescription = "Информация о приложении", modifier = Modifier.size(50.dp)
                                 )
                             }
                             Button(onClick = {
-                                viewModel.deleteTI()
+                                viewModel.deleteSteelMark()
                                 viewModel.openDialogAndUpdate("Объект испытания удален")
-                            }, enabled = getAllTI().size != 1) {
+                            }, enabled = DBManager.getAllSteelMarks().size != 1) {
                                 Icon(
                                     imageVector = Icons.Filled.Delete,
                                     contentDescription = "Информация о приложении", modifier = Modifier.size(50.dp)
@@ -74,27 +77,27 @@ class EditorOIScreen() : Screen {
                     Column(
                         modifier = Modifier.fillMaxWidth(0.6f).fillMaxHeight().border(2.dp, Color.DarkGray)
                     ){
-                        CreatorOI(viewModel)
+                        CreatorMarkSteel(viewModel)
                     }
                     Column(
                         modifier = Modifier.fillMaxWidth(0.3f).fillMaxHeight(),
                         verticalArrangement = Arrangement.Bottom
                     ) {
                         ActionButton(
-                            if (!viewModel.addNewTI.value) "Сохранить" else "Добавить",
+                            if (!viewModel.addNewSteel.value) "Сохранить" else "Добавить",
                             Icons.Filled.Check,
-                            disabled = viewModel.paramsList.none { it.isError.value }
+                            disabled = viewModel.marksSteelList.none { it.isError.value }
                         ) {
-                            viewModel.addNewTI()
-                            viewModel.openDialogAndUpdate(if (!viewModel.addNewTI.value) "Объект испытания сохранен" else "Объект испытания добавлен")
-                            }
+                            viewModel.addNewSteelMark()
+                            viewModel.openDialogAndUpdate(if (!viewModel.addNewSteel.value) "Тип стали сохранен" else "Тип стали добавлен")
                         }
                     }
-                    if (viewModel.dialogWindow.value) {
-                        TestDialog(viewModel.dialogText.value)
-                    }
-                },
-                bottomBar = {  }
-            )
+                }
+                if (viewModel.dialogWindow.value) {
+                    TestDialog(viewModel.dialogText.value)
+                }
+            },
+            bottomBar = {  }
+        )
     }
 }

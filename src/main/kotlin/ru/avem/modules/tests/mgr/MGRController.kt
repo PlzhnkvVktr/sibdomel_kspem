@@ -71,6 +71,7 @@ suspend fun TestScreenViewModel.startMeasurementMGR() {
             appendMessageToLog("Идет измерение...", LogType.ERROR)
         }
         if (isTestRunning.value) delay(3000)
+        testItem
         var time = 90
         while (isTestRunning.value && statusMGR != 4 && time-- > 0) {
             delay(1000)

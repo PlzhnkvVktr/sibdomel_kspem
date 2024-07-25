@@ -37,7 +37,7 @@ fun TestNavigationBar(
     ) {
         ActionButton("Отменить все", Icons.Filled.Close) {
             CustomController.isTestRunning.value = false
-            DBManager.addNewProtocol(CustomController.testObject.name, CustomController.testObject, mainViewModel.factoryNumber.value)
+            DBManager.addNewProtocol(mainViewModel.factoryNumber.value)
             mainViewModel.testList.clear()
             navigator.pop()
         }
@@ -58,7 +58,7 @@ fun TestNavigationBar(
             } else {
                 mainViewModel.testList.clear()
                 navigator.replace(MainScreen())
-                DBManager.addNewProtocol(CustomController.testObject.name, CustomController.testObject, mainViewModel.factoryNumber.value)
+                DBManager.addNewProtocol(mainViewModel.factoryNumber.value)
                 ProtocolBuilder.clear()
             }
             CustomController.logMessages.clear()

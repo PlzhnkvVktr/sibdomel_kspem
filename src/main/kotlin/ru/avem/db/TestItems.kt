@@ -8,21 +8,27 @@ import org.jetbrains.exposed.dao.IntIdTable
 object TestItems : IntIdTable() {
     var name = varchar("name", 50)
     val scheme = bool("scheme")
-    val power = varchar("power", 50)
-    val u_linear = varchar("u_linear", 50)
-    val i = varchar("i", 50)
-    val i_viu = varchar("i_viu", 50)
-    val i_mz = varchar("i_mz", 50)
-    val u_viu = varchar("u_viu", 50)
-    val u_mgr = varchar("u_mgr", 50)
-    val t_viu = varchar("t_viu", 50)
-    val t_hh = varchar("t_hh", 50)
-    val t_mv = varchar("t_mv", 50)
-    val r_max = varchar("r_max", 50)
-    val r_min = varchar("r_min", 50)
-    val r20_max = varchar("r20_max", 50)
-    val r20_min = varchar("r20_min", 50)
-    val t = varchar("t", 50)
+    val power = varchar("power", 20)
+    val u_linear = varchar("u_linear", 20)
+    val i = varchar("i", 20)
+    val i_viu = varchar("i_viu", 20)
+    val i_mz = varchar("i_mz", 20)
+    val u_viu = varchar("u_viu", 20)
+    val u_mgr = varchar("u_mgr", 20)
+    val t_viu = varchar("t_viu", 20)
+    val t_hh = varchar("t_hh", 20)
+    val t_mv = varchar("t_mv", 20)
+    val r_max = varchar("r_max", 20)
+    val r_min = varchar("r_min", 20)
+    val r20_max = varchar("r20_max", 20)
+    val r20_min = varchar("r20_min", 20)
+    val steel_mark = varchar("steel_mark", 20)
+    val isolation = bool("intensity")
+    val d_inside = varchar("d_inside", 20)
+    val d_outer = varchar("d_outer", 20)
+    val stator_length = varchar("stator_length", 20)
+    val height_slot = varchar("height_slot", 20)
+    val material = bool("material")
 }
 
 class TestItem(id: EntityID<Int>) : IntEntity(id) {
@@ -44,7 +50,13 @@ class TestItem(id: EntityID<Int>) : IntEntity(id) {
     var r_min by TestItems.r_min
     var r20_max by TestItems.r20_max
     var r20_min by TestItems.r20_min
-    var t by TestItems.t
+    var steel_mark by TestItems.steel_mark
+    var isolation by TestItems.isolation
+    var d_inside by TestItems.d_inside
+    var d_outer by TestItems.d_outer
+    var stator_length by TestItems.stator_length
+    var height_slot by TestItems.height_slot
+    var material by TestItems.material
 
     override fun toString() = name
 

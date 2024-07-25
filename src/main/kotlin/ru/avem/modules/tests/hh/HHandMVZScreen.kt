@@ -1,4 +1,4 @@
-package ru.avem.modules.tests.mv
+package ru.avem.modules.tests.hh
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -8,7 +8,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -23,19 +22,15 @@ import ru.avem.modules.tests.CustomController.isTestRunning
 import ru.avem.viewmodels.TestScreenViewModel
 
 
-class MVScreen(private var mainViewModel: MainScreenViewModel) : Test() {
+class HHandMVZScreen(private var mainViewModel: MainScreenViewModel) : Test() {
     override val testName: String
-        get() = TestEnum.nameMV.testName
+        get() = TestEnum.nameHHandMVZ.testName
 
     @Composable
     override fun Content() {
         val viewModel = rememberScreenModel { TestScreenViewModel() }
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
         val navigator = LocalNavigator.currentOrThrow
-
-        LifecycleEffect(onStarted = {
-//            viewModel.clearFields()
-        })
 
         Column {
             Scaffold(
@@ -53,7 +48,7 @@ class MVScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                             Column(
                                 modifier = Modifier.fillMaxHeight(0.6f).fillMaxWidth(0.8f).border(1.dp, Color.LightGray)
                             ) {
-                                MVTestWindow(viewModel)
+                                HHandMVZTestWindow(viewModel)
                             }
                             ProtectionStatusContainer()
                         }
@@ -61,7 +56,7 @@ class MVScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                             mainViewModel,
                             viewModel,
                             navigator,
-                            TestEnum.nameMV
+                            TestEnum.nameHHandMVZ
                         )
                         LogsList(viewModel.loggerScope)
                     }

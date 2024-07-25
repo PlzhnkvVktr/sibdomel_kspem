@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm")
     id("org.jetbrains.compose")
     kotlin("plugin.serialization").version("1.9.22")
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "com.example"
@@ -43,6 +44,11 @@ dependencies {
     implementation("org.jetbrains.compose.material:material-icons-extended-desktop:1.1.1")
     implementation("com.darkrockstudios:mpfilepicker:3.1.0")
 
+}
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "ru.avem.MainKt"
+    }
 }
 
 compose.desktop {

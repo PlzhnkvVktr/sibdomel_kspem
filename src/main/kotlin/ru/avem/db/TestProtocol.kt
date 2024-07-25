@@ -32,139 +32,51 @@ object TestProtocols : IntIdTable() {
     val scheme = bool("scheme").nullable()
 
     //MGR мегер
-    val mgrU_1 = varchar("U_1", 64).nullable()
-    var mgrR15_1 = varchar("R15_1", 64).nullable()
-    val mgrR60_1 = varchar("R60_1", 64).nullable()
-    val mgrkABS_1 = varchar("kABS_1", 64).nullable()
-    var mgrT_1 = varchar("mgrT_1", 64).nullable()
-    val mgrU_2 = varchar("U_2", 64).nullable()
-    var mgrR15_2 = varchar("R15_2", 64).nullable()
-    val mgrR60_2 = varchar("R60_2", 64).nullable()
-    val mgrkABS_2 = varchar("kABS_2", 64).nullable()
-    var mgrT_2 = varchar("mgrT_2", 64).nullable()
-    val mgrU_3 = varchar("U_3", 64).nullable()
-    var mgrR15_3 = varchar("R15_3", 64).nullable()
-    val mgrR60_3 = varchar("R60_3", 64).nullable()
-    val mgrkABS_3 = varchar("kABS_3", 64).nullable()
-    var mgrT_3 = varchar("mgrT_3", 64).nullable()
-    var mgrResult_1 = varchar("mgrResult_1", 64).nullable()
-    var mgrResult_2 = varchar("mgrResult_2", 64).nullable()
-    var mgrResult_3 = varchar("mgrResult_3", 64).nullable()
+    val mgrU = varchar("U", 10).nullable()
+    var mgrR15 = varchar("R15", 10).nullable()
+    val mgrR60 = varchar("R60", 10).nullable()
+    val mgrkABS = varchar("kABS", 10).nullable()
+    var mgrT = varchar("mgrT", 10).nullable()
+    var mgrResult = varchar("mgrResult", 240).nullable()
 
     //IKAS Измерение сопротивления обмоток постоянному току в практически холодном состоянии
 
-    val ikasRuv1 = varchar("Ruv1", 64).nullable()
-    val ikasRvw1 = varchar("Rvw1", 64).nullable()
-    val ikasRwu1 = varchar("Rwu1", 64).nullable()
-    val ikasRuv2 = varchar("Ruv2", 64).nullable()
-    val ikasRvw2 = varchar("Rvw2", 64).nullable()
-    val ikasRwu2 = varchar("Rwu2", 64).nullable()
-    val ikasRuv3 = varchar("Ruv3", 64).nullable()
-    val ikasRvw3 = varchar("Rvw3", 64).nullable()
-    val ikasRwu3 = varchar("Rwu3", 64).nullable()
-    var ikasResult_1 = varchar("ikasResult_1", 64).nullable()
-    var ikasResult_2 = varchar("ikasResult_2", 64).nullable()
-    var ikasResult_3 = varchar("ikasResult_3", 64).nullable()
+    val ikasRuv = varchar("Ruv", 10).nullable()
+    val ikasRvw = varchar("Rvw", 10).nullable()
+    val ikasRwu = varchar("Rwu", 10).nullable()
+    val calc_u_ikas = varchar("calc_u_ikas", 10).nullable()
+    val calc_v_ikas = varchar("calc_v_ikas", 10).nullable()
+    val calc_w_ikas = varchar("calc_w_ikas", 10).nullable()
+    val deviation = varchar("deviation", 10).nullable()
+    var ikasResult = varchar("ikasResult", 240).nullable()
 
     //VIU Испытание изоляции обмоток относительно корпуса и между фазами на электрическую прочность
 
-    var viuU_1 = varchar("viuU_1", 64).nullable()
-    var viuI_1 = varchar("viuI_1", 64).nullable()
-    var viuTime_1 = varchar("viuTime_1", 64).nullable()
-    var viuU_2 = varchar("viuU_2", 64).nullable()
-    var viuI_2 = varchar("viuI_2", 64).nullable()
-    var viuTime_2 = varchar("viuTime_2", 64).nullable()
-    var viuU_3 = varchar("viuU_3", 64).nullable()
-    var viuI_3 = varchar("viuI_3", 64).nullable()
-    var viuTime_3 = varchar("viuTime_3", 64).nullable()
-    var viuResult_1 = varchar("viuResult_1", 64).nullable()
-    var viuResult_2 = varchar("viuResult_2", 64).nullable()
-    var viuResult_3 = varchar("viuResult_3", 64).nullable()
+    var u_viu = varchar("u_viu", 10).nullable()
+    var i_viu = varchar("i_viu", 10).nullable()
+    var t_viu = varchar("t_viu", 10).nullable()
+    var viuResult = varchar("viuResult", 240).nullable()
 
-    //MV Испытание междувитковой изоляции
+    //MVZ HH
+    var u_uv_hh = varchar("u_uv_hh", 10).nullable()
+    var u_vw_hh = varchar("u_vw_hh", 10).nullable()
+    var u_wu_hh = varchar("u_wu_hh", 10).nullable()
+    var i_u_hh = varchar("i_u_hh", 10).nullable()
+    var i_v_hh = varchar("i_v_hh", 10).nullable()
+    var i_w_hh = varchar("i_w_hh", 10).nullable()
+    var cos_hh = varchar("cos_hh", 10).nullable()
+    var hhResult = varchar("hhResult", 240).nullable()
 
-    val before_i_u_hh_1 = varchar("before_i_u_hh_1", 64).nullable()
-    val before_i_v_hh_1 = varchar("before_i_v_hh_1", 64).nullable()
-    val before_i_w_hh_1 = varchar("before_i_w_hh_1", 64).nullable()
-
-    val before_i_u_hh_2 = varchar("before_i_u_hh_2", 64).nullable()
-    val before_i_v_hh_2 = varchar("before_i_v_hh_2", 64).nullable()
-    val before_i_w_hh_2 = varchar("before_i_w_hh_2", 64).nullable()
-
-    val before_i_u_hh_3 = varchar("before_i_u_hh_3", 64).nullable()
-    val before_i_v_hh_3 = varchar("before_i_v_hh_3", 64).nullable()
-    val before_i_w_hh_3 = varchar("before_i_w_hh_3", 64).nullable()
-
-    val after_i_u_hh_1 = varchar("after_i_u_hh_1", 64).nullable()
-    val after_i_v_hh_1 = varchar("after_i_v_hh_1", 64).nullable()
-    val after_i_w_hh_1 = varchar("after_i_w_hh_1", 64).nullable()
-
-    val after_i_u_hh_2 = varchar("after_i_u_hh_2", 64).nullable()
-    val after_i_v_hh_2 = varchar("after_i_v_hh_2", 64).nullable()
-    val after_i_w_hh_2 = varchar("after_i_w_hh_2", 64).nullable()
-
-    val after_i_u_hh_3 = varchar("after_i_u_hh_3", 64).nullable()
-    val after_i_v_hh_3 = varchar("after_i_v_hh_3", 64).nullable()
-    val after_i_w_hh_3 = varchar("after_i_w_hh_3", 64).nullable()
-
-    var before_u_uv_mv_1 = varchar("before_u_uv_mv_1", 64).nullable()
-    var before_u_vw_mv_1 = varchar("before_u_vw_mv_1", 64).nullable()
-    var before_u_wu_mv_1 = varchar("before_u_wu_mv_1", 64).nullable()
-
-    var before_u_uv_mv_2 = varchar("before_u_uv_mv_2", 64).nullable()
-    var before_u_vw_mv_2 = varchar("before_u_vw_mv_2", 64).nullable()
-    var before_u_wu_mv_2 = varchar("before_u_wu_mv_2", 64).nullable()
-
-    var before_u_uv_mv_3 = varchar("before_u_uv_mv_3", 64).nullable()
-    var before_u_vw_mv_3 = varchar("before_u_vw_mv_3", 64).nullable()
-    var before_u_wu_mv_3 = varchar("before_u_wu_mv_3", 64).nullable()
-
-    var after_u_uv_mv_1 = varchar("after_u_uv_mv_1", 64).nullable()
-    var after_u_vw_mv_1 = varchar("after_u_vw_mv_1", 64).nullable()
-    var after_u_wu_mv_1 = varchar("after_u_wu_mv_1", 64).nullable()
-
-    var after_u_uv_mv_2 = varchar("after_u_uv_mv_2", 64).nullable()
-    var after_u_vw_mv_2 = varchar("after_u_vw_mv_2", 64).nullable()
-    var after_u_wu_mv_2 = varchar("after_u_wu_mv_2", 64).nullable()
-
-    var after_u_uv_mv_3 = varchar("after_u_uv_mv_3", 64).nullable()
-    var after_u_vw_mv_3 = varchar("after_u_vw_mv_3", 64).nullable()
-    var after_u_wu_mv_3 = varchar("after_u_wu_mv_3", 64).nullable()
-
-    var result_a_mv_1 = varchar("result_a_mv_1", 64).nullable()
-    var result_b_mv_1 = varchar("result_b_mv_1", 64).nullable()
-    var result_c_mv_1 = varchar("result_c_mv_1", 64).nullable()
-
-    var result_a_mv_2 = varchar("result_a_mv_2", 64).nullable()
-    var result_b_mv_2 = varchar("result_b_mv_2", 64).nullable()
-    var result_c_mv_2 = varchar("result_c_mv_2", 64).nullable()
-
-    var result_a_mv_3 = varchar("result_a_mv_3", 64).nullable()
-    var result_b_mv_3 = varchar("result_b_mv_3", 64).nullable()
-    var result_c_mv_3 = varchar("result_c_mv_3", 64).nullable()
-
-
-
-    //HH Определение тока и потерь ХХ
-
-    var u_uv_hh_1 = varchar("u_uv_hh_1", 64).nullable()
-    var u_vw_hh_1 = varchar("u_vw_hh_1", 64).nullable()
-    var u_wu_hh_1 = varchar("u_wu_hh_1", 64).nullable()
-    var i_u_hh_1 = varchar("i_u_hh_1", 64).nullable()
-    var i_v_hh_1 = varchar("i_v_hh_1", 64).nullable()
-    var i_w_hh_1 = varchar("i_w_hh_1", 64).nullable()
-    var u_uv_hh_2 = varchar("u_uv_hh_2", 64).nullable()
-    var u_vw_hh_2 = varchar("u_vw_hh_2", 64).nullable()
-    var u_wu_hh_2 = varchar("u_wu_hh_2", 64).nullable()
-    var i_u_hh_2 = varchar("i_u_hh_2", 64).nullable()
-    var i_v_hh_2 = varchar("i_v_hh_2", 64).nullable()
-    var i_w_hh_2 = varchar("i_w_hh_2", 64).nullable()
-    var u_uv_hh_3 = varchar("u_uv_hh_3", 64).nullable()
-    var u_vw_hh_3 = varchar("u_vw_hh_3", 64).nullable()
-    var u_wu_hh_3 = varchar("u_wu_hh_3", 64).nullable()
-    var i_u_hh_3 = varchar("i_u_hh_3", 64).nullable()
-    var i_v_hh_3 = varchar("i_v_hh_3", 64).nullable()
-    var i_w_hh_3 = varchar("i_w_hh_3", 64).nullable()
+    //TL Определение тока и потерь ХХ
+    var u_set_tl = varchar("u_set_tl", 10).nullable()
+    var u_izm_tl = varchar("u_izm_tl", 10).nullable()
+    var i_u_tl = varchar("i_u_tl", 10).nullable()
+    var p_tl = varchar("p_tl", 10).nullable()
+    var induction_tl = varchar("induction_tl", 10).nullable()
+    var p_steel_tl = varchar("p_steel_tl", 10).nullable()
+    var intensity_tl = varchar("intensity_tl", 10).nullable()
+    var losses_tl = varchar("losses_tl", 10).nullable()
+    var tlResult = varchar("tlResult", 240).nullable()
 
 
 }
@@ -189,121 +101,52 @@ class TestProtocol(id: EntityID<Int>) : IntEntity(id) {
     var scheme by TestProtocols.scheme
 
     //MGR
-    val mgrU_1 by TestProtocols.mgrU_1
-    var mgrR15_1 by TestProtocols.mgrR15_1
-    val mgrR60_1 by TestProtocols.mgrR60_1
-    val mgrkABS_1 by TestProtocols.mgrkABS_1
-    var mgrT_1 by TestProtocols.mgrT_1
-    val mgrU_2 by TestProtocols.mgrU_2
-    var mgrR15_2 by TestProtocols.mgrR15_2
-    val mgrR60_2 by TestProtocols.mgrR60_2
-    val mgrkABS_2 by TestProtocols.mgrkABS_2
-    var mgrT_2 by TestProtocols.mgrT_2
-    val mgrU_3 by TestProtocols.mgrU_3
-    var mgrR15_3 by TestProtocols.mgrR15_3
-    val mgrR60_3 by TestProtocols.mgrR60_3
-    val mgrkABS_3 by TestProtocols.mgrkABS_3
-    var mgrT_3 by TestProtocols.mgrT_3
-    var mgrResult_1 by TestProtocols.mgrResult_1
-    var mgrResult_2 by TestProtocols.mgrResult_2
-    var mgrResult_3 by TestProtocols.mgrResult_3
+    var mgrU by TestProtocols.mgrU
+    var mgrR15 by TestProtocols.mgrR15
+    var mgrR60 by TestProtocols.mgrR60
+    var mgrkABS by TestProtocols.mgrkABS
+    var mgrResult by TestProtocols.mgrResult
 
 
     //IKAS
-    val ikasRuv1 by TestProtocols.ikasRuv1
-    val ikasRvw1 by TestProtocols.ikasRvw1
-    val ikasRwu1 by TestProtocols.ikasRwu1
-    val ikasRuv2 by TestProtocols.ikasRuv2
-    val ikasRvw2 by TestProtocols.ikasRvw2
-    val ikasRwu2 by TestProtocols.ikasRwu2
-    val ikasRuv3 by TestProtocols.ikasRuv3
-    val ikasRvw3 by TestProtocols.ikasRvw3
-    val ikasRwu3 by TestProtocols.ikasRwu3
-    var ikasResult_1 by TestProtocols.ikasResult_1
-    var ikasResult_2 by TestProtocols.ikasResult_2
-    var ikasResult_3 by TestProtocols.ikasResult_3
+    var ikasRuv by TestProtocols.ikasRuv
+    var ikasRvw by TestProtocols.ikasRvw
+    var ikasRwu by TestProtocols.ikasRwu
+    var calc_u_ikas by TestProtocols.calc_u_ikas
+    var calc_v_ikas by TestProtocols.calc_v_ikas
+    var calc_w_ikas by TestProtocols.calc_w_ikas
+    var deviation by TestProtocols.deviation
+    var ikasResult by TestProtocols.ikasResult
+
 
     //VIU
 
-    var viuU_1 by TestProtocols.viuU_1
-    var viuI_1 by TestProtocols.viuI_1
-    var viuTime_1 by TestProtocols.viuTime_1
-    var viuU_2 by TestProtocols.viuU_2
-    var viuI_2 by TestProtocols.viuI_2
-    var viuTime_2 by TestProtocols.viuTime_2
-    var viuU_3 by TestProtocols.viuU_3
-    var viuI_3 by TestProtocols.viuI_3
-    var viuTime_3 by TestProtocols.viuTime_3
-    var viuResult_1 by TestProtocols.viuResult_1
-    var viuResult_2 by TestProtocols.viuResult_2
-    var viuResult_3 by TestProtocols.viuResult_3
+    var u_viu by TestProtocols.u_viu
+    var i_viu by TestProtocols.i_viu
+    var t_viu by TestProtocols.t_viu
+    var viuResult by TestProtocols.viuResult
 
-    //MV
-    val before_i_u_hh_1 by TestProtocols.before_i_u_hh_1
-    val before_i_v_hh_1 by TestProtocols.before_i_v_hh_1
-    val before_i_w_hh_1 by TestProtocols.before_i_w_hh_1
-    val before_i_u_hh_2 by TestProtocols.before_i_u_hh_2
-    val before_i_v_hh_2 by TestProtocols.before_i_v_hh_2
-    val before_i_w_hh_2 by TestProtocols.before_i_w_hh_2
-    val before_i_u_hh_3 by TestProtocols.before_i_u_hh_3
-    val before_i_v_hh_3 by TestProtocols.before_i_v_hh_3
-    val before_i_w_hh_3 by TestProtocols.before_i_w_hh_3
-    val after_i_u_hh_1 by TestProtocols.after_i_u_hh_1
-    val after_i_v_hh_1 by TestProtocols.after_i_v_hh_1
-    val after_i_w_hh_1 by TestProtocols.after_i_w_hh_1
-    val after_i_u_hh_2 by TestProtocols.after_i_u_hh_2
-    val after_i_v_hh_2 by TestProtocols.after_i_v_hh_2
-    val after_i_w_hh_2 by TestProtocols.after_i_w_hh_2
-    val after_i_u_hh_3 by TestProtocols.after_i_u_hh_3
-    val after_i_v_hh_3 by TestProtocols.after_i_v_hh_3
-    val after_i_w_hh_3 by TestProtocols.after_i_w_hh_3
-    var before_u_uv_mv_1 by TestProtocols.before_u_uv_mv_1
-    var before_u_vw_mv_1 by TestProtocols.before_u_vw_mv_1
-    var before_u_wu_mv_1 by TestProtocols.before_u_wu_mv_1
-    var before_u_uv_mv_2 by TestProtocols.before_u_uv_mv_2
-    var before_u_vw_mv_2 by TestProtocols.before_u_vw_mv_2
-    var before_u_wu_mv_2 by TestProtocols.before_u_wu_mv_2
-    var before_u_uv_mv_3 by TestProtocols.before_u_uv_mv_3
-    var before_u_vw_mv_3 by TestProtocols.before_u_vw_mv_3
-    var before_u_wu_mv_3 by TestProtocols.before_u_wu_mv_3
-    var after_u_uv_mv_1 by TestProtocols.after_u_uv_mv_1
-    var after_u_vw_mv_1 by TestProtocols.after_u_vw_mv_1
-    var after_u_wu_mv_1 by TestProtocols.after_u_wu_mv_1
-    var after_u_uv_mv_2 by TestProtocols.after_u_uv_mv_2
-    var after_u_vw_mv_2 by TestProtocols.after_u_vw_mv_2
-    var after_u_wu_mv_2 by TestProtocols.after_u_wu_mv_2
-    var after_u_uv_mv_3 by TestProtocols.after_u_uv_mv_3
-    var after_u_vw_mv_3 by TestProtocols.after_u_vw_mv_3
-    var after_u_wu_mv_3 by TestProtocols.after_u_wu_mv_3
-    var result_a_mv_1 by TestProtocols.result_a_mv_1
-    var result_b_mv_1 by TestProtocols.result_b_mv_1
-    var result_c_mv_1 by TestProtocols.result_c_mv_1
-    var result_a_mv_2 by TestProtocols.result_a_mv_2
-    var result_b_mv_2 by TestProtocols.result_b_mv_2
-    var result_c_mv_2 by TestProtocols.result_c_mv_2
-    var result_a_mv_3 by TestProtocols.result_a_mv_3
-    var result_b_mv_3 by TestProtocols.result_b_mv_3
-    var result_c_mv_3 by TestProtocols.result_c_mv_3
+    //MVZ HH
+    var u_uv_hh by TestProtocols.u_uv_hh
+    var u_vw_hh by TestProtocols.u_vw_hh
+    var u_wu_hh by TestProtocols.u_wu_hh
+    var i_u_hh by TestProtocols.i_u_hh
+    var i_v_hh by TestProtocols.i_v_hh
+    var i_w_hh by TestProtocols.i_w_hh
+    var cos_hh by TestProtocols.cos_hh
+    var hhResult by TestProtocols.hhResult
 
-//HH
-    var u_uv_hh_1 by TestProtocols.u_uv_hh_1
-    var u_vw_hh_1 by TestProtocols.u_vw_hh_1
-    var u_wu_hh_1 by TestProtocols.u_wu_hh_1
-    var i_u_hh_1 by TestProtocols.i_u_hh_1
-    var i_v_hh_1 by TestProtocols.i_v_hh_1
-    var i_w_hh_1 by TestProtocols.i_w_hh_1
-    var u_uv_hh_2 by TestProtocols.u_uv_hh_2
-    var u_vw_hh_2 by TestProtocols.u_vw_hh_2
-    var u_wu_hh_2 by TestProtocols.u_wu_hh_2
-    var i_u_hh_2 by TestProtocols.i_u_hh_2
-    var i_v_hh_2 by TestProtocols.i_v_hh_2
-    var i_w_hh_2 by TestProtocols.i_w_hh_2
-    var u_uv_hh_3 by TestProtocols.u_uv_hh_3
-    var u_vw_hh_3 by TestProtocols.u_vw_hh_3
-    var u_wu_hh_3 by TestProtocols.u_wu_hh_3
-    var i_u_hh_3 by TestProtocols.i_u_hh_3
-    var i_v_hh_3 by TestProtocols.i_v_hh_3
-    var i_w_hh_3 by TestProtocols.i_w_hh_3
+
+    //TL
+    var u_set_tl by TestProtocols.u_set_tl
+    var u_izm_tl by TestProtocols.u_izm_tl
+    var i_u_tl by TestProtocols.i_u_tl
+    var p_tl by TestProtocols.p_tl
+    var induction_tl by TestProtocols.induction_tl
+    var p_steel_tl by TestProtocols.p_steel_tl
+    var intensity_tl by TestProtocols.intensity_tl
+    var losses_tl by TestProtocols.losses_tl
+    var tlResult by TestProtocols.tlResult
 
 
 

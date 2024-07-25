@@ -61,7 +61,7 @@ class TLScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                             mainViewModel,
                             viewModel,
                             navigator,
-                            TestEnum.nameVIU
+                            TestEnum.nameTL
                         )
                         LogsList(viewModel.loggerScope)
                     }

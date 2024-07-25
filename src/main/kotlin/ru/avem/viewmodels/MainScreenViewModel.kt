@@ -4,7 +4,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import cafe.adriel.voyager.core.registry.screenModule
 import cafe.adriel.voyager.navigator.Navigator
 import kotlinx.coroutines.launch
 import ru.avem.db.DBManager
@@ -12,10 +11,9 @@ import ru.avem.data.enums.TestEnum
 import ru.avem.modules.models.SelectedTestObject
 import ru.avem.modules.tests.CustomController
 import ru.avem.modules.tests.Test
-import ru.avem.modules.tests.hh.HHScreen
+import ru.avem.modules.tests.hh.HHandMVZScreen
 import ru.avem.modules.tests.ikas.IKASScreen
 import ru.avem.modules.tests.mgr.MGRScreen
-import ru.avem.modules.tests.mv.MVScreen
 import ru.avem.modules.tests.tl.TLScreen
 import ru.avem.modules.tests.viu.VIUScreen
 
@@ -34,8 +32,7 @@ open class MainScreenViewModel : ScreenModel {
         TestEnum.nameMGR to mutableStateOf(false),
         TestEnum.nameVIU to mutableStateOf(false),
         TestEnum.nameIKAS to mutableStateOf(false),
-        TestEnum.nameHH to mutableStateOf(false),
-        TestEnum.nameMV to mutableStateOf(false),
+        TestEnum.nameHHandMVZ to mutableStateOf(false),
         TestEnum.nameTL to mutableStateOf(false)
     )
 
@@ -48,8 +45,7 @@ open class MainScreenViewModel : ScreenModel {
             TestEnum.nameMGR -> testList.add(MGRScreen(this))
             TestEnum.nameVIU -> testList.add(VIUScreen(this))
             TestEnum.nameIKAS -> testList.add(IKASScreen(this))
-            TestEnum.nameHH -> testList.add(HHScreen(this))
-            TestEnum.nameMV -> testList.add(MVScreen(this))
+            TestEnum.nameHHandMVZ -> testList.add(HHandMVZScreen(this))
             TestEnum.nameTL -> testList.add(TLScreen(this))
         }
     }
@@ -88,12 +84,15 @@ open class MainScreenViewModel : ScreenModel {
 
     fun startTests (navigator: Navigator) {
         screenModelScope.launch {
+            val a = java.util.Date().time
             CustomController.testObjectName.value = selectedTI.value
             CustomController.testObject = DBManager.getTI(CustomController.testObjectName.value)
             navigator.push(testsLine.value.next())
             testMap.forEach { item -> item.value.value = false }
             startTestButton.value = false
             allCheckedButton.value = false
+            val b = java.util.Date().time
+            println("====> ${a - b}")
         }
     }
 

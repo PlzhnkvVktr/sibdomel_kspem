@@ -22,7 +22,7 @@ fun HeaderButton (text: String, screen: Screen) {
         },
         modifier = Modifier
             .border(2.dp, if(navigator.lastItem.key == screen.key) Color.Black else Color.White)
-            .width(250.dp),
+            .width(260.dp),
         ) {
         Text(
             text = text,
