@@ -22,7 +22,6 @@ val isTablet = true
 fun main() = application {
 
     DBManager
-    println(0.0/0.0)
     Window(
         onCloseRequest = ::exitApplication,
         title = "КСПЭМ",

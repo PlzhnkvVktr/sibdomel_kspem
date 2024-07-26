@@ -35,8 +35,6 @@ class TestScreenViewModel : ScreenModel {
 
     val loggerScope = CoroutineScope(Dispatchers.Main)
 
-    val currentTest = mutableStateOf<SelectedTestObject?>(null)
-
     val time: MutableState<String> = mutableStateOf("")
     val result: MutableState<String> = mutableStateOf("")
 
@@ -65,7 +63,6 @@ class TestScreenViewModel : ScreenModel {
     }
 
     fun start (
-        testItemLine: MutableState<MutableIterator<SelectedTestObject>>,
         testName: TestEnum
     ) {
         clearFields()

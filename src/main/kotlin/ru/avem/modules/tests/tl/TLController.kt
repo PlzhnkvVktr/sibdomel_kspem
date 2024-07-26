@@ -154,7 +154,7 @@ suspend fun TestScreenViewModel.startMeasurementTL() {
                 isTestRunning.value = false
                 break
             }
-            if (System.currentTimeMillis() - devTimer > 5000 && CustomController.latrEndsState == 2) {
+            if (System.currentTimeMillis() - devTimer > 15_000 && CustomController.latrEndsState == 2) {
                 appendMessageToLog("Застревание АРН", LogType.ERROR)
                 isTestRunning.value = false
             }

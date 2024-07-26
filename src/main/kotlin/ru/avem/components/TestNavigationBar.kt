@@ -47,7 +47,7 @@ fun TestNavigationBar(
             testViewModel.waiting.value
         ) {
             if (!CustomController.isTestRunning.value) {
-                testViewModel.start(mainViewModel.testItemLine, testName)
+                testViewModel.start(testName)
             } else {
                 CustomController.isTestRunning.value = false
             }

@@ -58,7 +58,7 @@ fun IKASTestWindow (viewModel: TestScreenViewModel) {
             horizontalAlignment = Alignment.End
         ) {
             Row(Modifier.background(Color.Gray).fillMaxWidth(0.5f)) {
-                TableCell(text = "Разница")
+                TableCell(text = "Разница, %")
                 TableCell(text = "Результат")
             }
 

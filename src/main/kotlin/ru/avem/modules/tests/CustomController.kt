@@ -165,21 +165,21 @@ object CustomController {
                         isTestRunning.value = false
                     }
                     if (isStopPressed.value) {
-                        appendMessageToLog(("the <STOP> button is pressed"), LogType.ERROR)
+                        appendMessageToLog("Нажата кнопка <СТОП>", LogType.ERROR)
                         isTestRunning.value = false
                     }
                     if (doorZone.value) {
-                        appendMessageToLog(("zone doors open"), LogType.ERROR)
+                        appendMessageToLog("Открыты двери зоны", LogType.ERROR)
                         isTestRunning.value = false
                     }
                     if (doorSCO.value) {
-                        appendMessageToLog(("the doors are open"), LogType.ERROR)
+                        appendMessageToLog("Открыты двери ШСО", LogType.ERROR)
                         isTestRunning.value = false
                     }
                     if (ikzTI.value) {
                         count++
                         if (count >= 8) {
-                            appendMessageToLog(("Overcurrent"), LogType.ERROR)
+                            appendMessageToLog("Превышение тока ОИ", LogType.ERROR)
                             stateLock = true
                             isTestRunning.value = false
                         }
@@ -187,11 +187,11 @@ object CustomController {
                         count = 0
                     }
                     if (ikzVIU.value) {
-                        appendMessageToLog(("Overcurrent"), LogType.ERROR)
+                        appendMessageToLog("Превышение тока ОИ", LogType.ERROR)
                         isTestRunning.value = false
                     }
                     if (!isTestRunning.value) {
-                        appendMessageToLog(("Test finished"), LogType.ERROR)
+                        appendMessageToLog("Измерение завершено", LogType.ERROR)
                     }
                 }
                 stopTestRunning()

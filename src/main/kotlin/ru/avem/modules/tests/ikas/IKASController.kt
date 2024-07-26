@@ -76,7 +76,7 @@ private fun TestScreenViewModel.calcRs(
         testItem.calc_w_ikas.value = "Обрыв"
 
     } else {
-        if (!ti.scheme) {//TODO указать схему звезда
+        if (ti.scheme) {//TODO указать схему звезда
             testItem.calc_u_ikas.value = "%.3f".format(Locale.ENGLISH, ((resistanceCA + resistanceAB - resistanceBC) / 2.0))
             testItem.calc_v_ikas.value = "%.3f".format(Locale.ENGLISH, ((resistanceAB + resistanceBC - resistanceCA) / 2.0))
             testItem.calc_w_ikas.value = "%.3f".format(Locale.ENGLISH, ((resistanceBC + resistanceCA - resistanceAB) / 2.0))
