@@ -230,6 +230,11 @@ suspend fun TestScreenViewModel.startMeasurementTL() {
 //        runLater {
 
         val res = measuringPt / ourObjectType.losses.toDouble() - 1.0 < ourObjectType.error.toDouble() / 100.0
+        testItem.p_tl.value = pA.value
+        testItem.i_u_tl.value = i_u.value
+        testItem.u_izm_tl.value = u_a.value
+
+
         testItem.induction_tl.value = measuringBf.autoformat()
         testItem.p_steel_tl.value = measuringPf.autoformat()
         testItem.losses_tl.value = measuringPt.autoformat()

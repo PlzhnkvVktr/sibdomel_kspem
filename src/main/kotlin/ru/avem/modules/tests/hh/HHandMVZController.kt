@@ -50,9 +50,16 @@ suspend fun TestScreenViewModel.startMeasurementHHandMVZ() {
         i_v.value = b_i.toString()
         i_w.value = c_i.toString()
 
+        testItem.u_uv_hh.value = a_u.toString()
+        testItem.u_vw_hh.value = b_u.toString()
+        testItem.u_wu_hh.value = c_u.toString()
+        testItem.u_uv_hh.value = a_i.toString()
+        testItem.u_vw_hh.value = b_i.toString()
+        testItem.u_wu_hh.value = c_i.toString()
+
         testItem.i_deviation_hh.value = ((maxOf(a_i, b_i, c_i) - minOf(a_i, b_i, c_i)) / maxOf(a_i, b_i, c_i) * 100).af()
         if (testItem.i_deviation_hh.value == "NaN") testItem.i_deviation_hh.value = "0.0"
-        testItem.hh_result.value = if (testItem.i_deviation_hh.value.toDouble() > CustomController.testObject.i_mz.toDouble()) {
+        testItem.hhResult.value = if (testItem.i_deviation_hh.value.toDouble() > CustomController.testObject.i_mz.toDouble()) {
             "Отклонение > ${CustomController.testObject.i_mz}"
         } else {
             "Успешно"

@@ -30,7 +30,7 @@ fun CreatorOI (viewModel: EditorOIScreenViewModel) {
                     Switch(
                         checked = viewModel.scheme.value,
                         onCheckedChange = {
-                            viewModel.scheme.value = it
+                            viewModel.scheme.value = viewModel.scheme.value
                         }
                     )
                     Text("λ", style = MaterialTheme.typography.h4, modifier = Modifier.padding(top = 5.dp))

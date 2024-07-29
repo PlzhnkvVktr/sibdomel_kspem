@@ -71,15 +71,17 @@ suspend fun TestScreenViewModel.startMeasurementMGR() {
             appendMessageToLog("Идет измерение...", LogType.ERROR)
         }
         if (isTestRunning.value) delay(3000)
-        testItem
+//        testItem
         var time = 90
         while (isTestRunning.value && statusMGR != 4 && time-- > 0) {
             delay(1000)
         }
         appendMessageToLog("Измерение завершено", LogType.MESSAGE)
+        testItem.res_mgr.value = "Измерение завершено"
     } else {
         isTestRunning.value = false
         appendMessageToLog("Измерение прервано", LogType.ERROR)
+        testItem.res_mgr.value = "Измерение прервано"
     }
     pr66.stopTest()
 }

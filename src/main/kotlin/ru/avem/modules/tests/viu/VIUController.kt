@@ -152,7 +152,8 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
         } else {
             testItem.res_viu.value = "Прервано"
         }
-//                addReport(viewModel)
+
+        addReportVIU()
 
 
         ATR.resetLATR()

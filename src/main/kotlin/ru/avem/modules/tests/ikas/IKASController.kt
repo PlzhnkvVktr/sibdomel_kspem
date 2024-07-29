@@ -51,11 +51,15 @@ suspend fun TestScreenViewModel.startMeasurementIKAS() {
             }
         }
 
-        this.calcRs(resistanceAB, resistanceBC, resistanceCA, CustomController.testObject)
+        this.calcRs(resistanceAB, resistanceBC, resistanceCA, testObject)
 
+
+        testItem.res_ikas.value = "Испытание завершено"
     } else {
         isTestRunning.value = false
+        testItem.res_ikas.value = "Испытание прервано"
     }
+    println(testItem.r_uv_ikas.value)
 }
 
 private fun TestScreenViewModel.calcRs(

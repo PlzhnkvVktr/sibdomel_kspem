@@ -86,7 +86,6 @@ class TestScreenViewModel : ScreenModel {
                 }
                 TestEnum.nameVIU -> {
                     startMeasurementVIU()
-                    addReportVIU()
                 }
                 TestEnum.nameIKAS -> {
                     startMeasurementIKAS()
@@ -214,7 +213,6 @@ class TestScreenViewModel : ScreenModel {
                 cos_hh.value = ""
                 hhResult.value = ""
                 i_deviation_hh.value = ""
-                hh_result.value = ""
                 u_set_tl.value = ""
                 u_izm_tl.value = ""
                 i_u_tl.value = ""

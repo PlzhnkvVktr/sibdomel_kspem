@@ -59,7 +59,7 @@ fun MGRTestWindow (viewModel: TestScreenViewModel) {
             }
 
             Row(Modifier.fillMaxWidth(0.25f)) {
-                TableCell(text = viewModel.result.value)
+                TableCell(text = viewModel.testItem.res_mgr.value)
             }
         }
     }

@@ -77,10 +77,10 @@ class EditorOIScreenViewModel : ScreenModel {
         ParamOI("Допустимый ток утечки ВИУ, мА", i_viu, 0, 240),
         ParamOI("Допустимое отклонение токов при МВЗ, %", i_mz, 0, 20),
 
-        ParamOI("Внутренний диаметр статора", d_inside, 0, 9999),
-        ParamOI("Внешний диаметр статора", d_outer, 0, 9999),
-        ParamOI("Длинна пакета статора", stator_length, 0, 9999),
-        ParamOI("Высота спинки", height_slot, 0, 9999),
+        ParamOI("Внутренний диаметр статора, мм", d_inside, 0, 9999),
+        ParamOI("Внешний диаметр статора, мм", d_outer, 0, 9999),
+        ParamOI("Длинна пакета статора, мм", stator_length, 0, 9999),
+        ParamOI("Высота спинки, мм", height_slot, 0, 9999),
     )
 
     fun openDialogAndUpdate (text: String) {

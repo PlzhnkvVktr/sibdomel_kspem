@@ -71,7 +71,7 @@ fun HHandMVZTestWindow (viewModel: TestScreenViewModel) {
             }
             Row(Modifier.fillMaxWidth(0.5f)) {
                 TableCell(text = viewModel.testItem.i_deviation_hh.value)
-                TableCell(text = viewModel.testItem.hh_result.value)
+                TableCell(text = viewModel.testItem.hhResult.value)
             }
         }
     }

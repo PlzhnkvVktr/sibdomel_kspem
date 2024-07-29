@@ -298,7 +298,7 @@ object DBManager {
                     it[specifiedU] = CustomController.testObject.u_linear
                     it[specifiedI] = CustomController.testObject.i
 //                    it[specifiedRPM] = CustomController.testObject.specifiedRPM
-//                    it[specifiedP] = CustomController.testObject.specifiedP
+                    it[specifiedP] = CustomController.testObject.power
                     it[specifiedIdleTime] = CustomController.testObject.t_hh
 //                    it[specifiedRunningTime] = CustomController.testObject.specifiedRunningTime
                     it[specifiedMgrU] = CustomController.testObject.u_mgr
@@ -368,7 +368,7 @@ object DBManager {
                     this.specifiedU = CustomController.testObject.u_linear
                     this.specifiedI = CustomController.testObject.i
 //                    it[specifiedRPM] = CustomController.testObject.specifiedRPM
-//                    it[specifiedP] = CustomController.testObject.specifiedP
+                    this.specifiedP = CustomController.testObject.power
                     this.specifiedIdleTime = CustomController.testObject.t_hh
 //                    it[specifiedRunningTime] = CustomController.testObject.specifiedRunningTime
                     this.specifiedMgrU = CustomController.testObject.u_mgr

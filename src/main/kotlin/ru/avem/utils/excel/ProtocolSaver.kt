@@ -83,7 +83,7 @@ fun saveProtocolAsWorkbook(protocol: ProtocolBuilder, path: String = "cfg/lastOp
                                 "#IN#" -> cell.setCellValue(protocol.specifiedI)
                                 "#NASYNC#" -> cell.setCellValue(protocol.specifiedRPM)
                                 "#SCHEMETITLE#" -> cell.setCellValue(("scheme"))
-                                "#SCHEME#" -> cell.setCellValue(if (protocol.scheme.toBoolean()) "∆" else "λ")
+                                "#SCHEME#" -> cell.setCellValue(if (protocol.scheme.toBoolean()) "λ" else "∆")
                                 //MGR
 //                                "#MGRNAME#" -> cell.setCellValue(protocol.R15)
 

@@ -55,8 +55,8 @@ fun SpecifiedParamsItem (text: String, paramValue: String) {
         )
         Text(
             text = when (paramValue) {
-                "true" -> "∆"
-                "false" -> "λ"
+                "true" -> "λ"
+                "false" -> "∆"
                 else -> paramValue
             },
             style = MaterialTheme.typography.subtitle1,

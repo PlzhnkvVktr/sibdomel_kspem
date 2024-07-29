@@ -64,7 +64,7 @@ fun IKASTestWindow (viewModel: TestScreenViewModel) {
 
             Row(Modifier.fillMaxWidth(0.5f)) {
                 TableCell(text = viewModel.testItem.deviation.value.af())
-                TableCell(text = viewModel.result.value)
+                TableCell(text = viewModel.testItem.res_ikas.value)
             }
         }
 
