@@ -21,6 +21,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import ru.avem.components.ActionButton
 import ru.avem.components.ComboBox
+import ru.avem.utils.kb
 import ru.avem.viewmodels.AuthScreenViewModel
 
 class AuthScreen: Screen {
@@ -76,7 +77,10 @@ class AuthScreen: Screen {
                                     )
                                     OutlinedTextField(
                                         value = viewModel.password.value,
-                                        modifier = Modifier.fillMaxWidth(.9f),
+                                        modifier = Modifier
+                                            .fillMaxWidth(.9f)
+
+                                            .kb(),
                                         onValueChange = { viewModel.password.value = it },
                                         textStyle = MaterialTheme.typography.h5,
                                         label = { Text("Пароль") },

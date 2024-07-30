@@ -152,19 +152,20 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
         } else {
             testItem.res_viu.value = "Прервано"
         }
-
+        testItem.t_viu.value = setTime.toString()
+        testItem.u_viu.value = voltage.af()
         addReportVIU()
 
 
-        ATR.resetLATR()
-        if (isTestRunning.value) {
-            sleepWhileRun(1.0)
-            delay(1000)
-        } else {
-            pr102.arn(false)
-        }
-        while (voltage > 100) {
-            delay(100)
-        }
+    }
+    ATR.resetLATR()
+    if (isTestRunning.value) {
+        sleepWhileRun(1.0)
+        delay(1000)
+    } else {
+        pr102.arn(false)
+    }
+    while (voltage > 100) {
+        delay(100)
     }
 }

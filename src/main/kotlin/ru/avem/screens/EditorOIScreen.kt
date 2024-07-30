@@ -72,12 +72,12 @@ class EditorOIScreen() : Screen {
                         }
                     }
                     Column(
-                        modifier = Modifier.fillMaxWidth(0.6f).fillMaxHeight().border(2.dp, Color.DarkGray)
+                        modifier = Modifier.fillMaxWidth(0.7f).fillMaxHeight().border(2.dp, Color.DarkGray)
                     ){
                         CreatorOI(viewModel)
                     }
                     Column(
-                        modifier = Modifier.fillMaxWidth(0.3f).fillMaxHeight(),
+                        modifier = Modifier.fillMaxWidth(0.35f).fillMaxHeight(),
                         verticalArrangement = Arrangement.Bottom
                     ) {
                         ActionButton(

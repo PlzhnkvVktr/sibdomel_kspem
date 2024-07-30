@@ -13,6 +13,7 @@ import ru.avem.components.Header
 import ru.avem.components.ProtocolListItem
 import ru.avem.viewmodels.ProtocolScreenViewModel
 import ru.avem.components.ScrollableLazyColumn
+import ru.avem.utils.kb
 
 class ProtocolScreen : Screen {
 
@@ -35,7 +36,11 @@ class ProtocolScreen : Screen {
                     ) {
                         OutlinedTextField(
                             value = viewModel.textFind.value,
-                            modifier = Modifier.fillMaxWidth(.5f).height(80.dp).padding(10.dp),
+                            modifier = Modifier
+                                .fillMaxWidth(.5f)
+                                .height(80.dp)
+                                .padding(10.dp)
+                                .kb(),
                             textStyle = MaterialTheme.typography.h5,
                             placeholder = {
                                 Text(

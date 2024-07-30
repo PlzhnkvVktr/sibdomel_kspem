@@ -207,6 +207,20 @@ class PR(
             offOutput01To16(6)
         }
     }
+    fun signal(stat: Boolean) {
+        if (stat) {
+            onOutput01To16(8)
+        } else {
+            offOutput01To16(8)
+        }
+    }
+    fun light(stat: Boolean) {
+        if (stat) {
+            onOutput01To16(7)
+        } else {
+            offOutput01To16(7)
+        }
+    }
     fun ikasA(stat: Boolean) {
         if (stat) {
             onOutput01To16(9)

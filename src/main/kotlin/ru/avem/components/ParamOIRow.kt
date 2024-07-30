@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ru.avem.data.models.ParamOI
+import ru.avem.utils.kb
 
 @Composable
 fun ParamOIRow(
@@ -41,6 +42,7 @@ fun ParamOIRow(
             OutlinedTextField(
                 value = item.param.value,
                 modifier = Modifier
+                    .kb()
                     .fillMaxWidth()
                     .height(50.dp)
                     .border(2.dp, if (item.isError.value) Color.Red else Color.Green),

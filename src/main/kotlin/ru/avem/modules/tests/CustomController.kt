@@ -101,6 +101,15 @@ object CustomController {
             }
             delay(100)
         }
+        warning()
+    }
+
+    private suspend fun warning() {
+        pr102.signal(true)
+        pr102.light(true)
+        delay(3000)
+        pr102.signal(false)
+        pr102.light(false)
     }
 
     suspend fun checkLatrZero() {
@@ -333,6 +342,8 @@ object CustomController {
         }
         CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.I_A_REGISTER) {
             vm.i_u.value = (it.toDouble() * ktrAmperage).af()
+
+            appendMessageToLog(it.af())
             if (isTestRunning.value) {
                 if (it.toDouble() > 6.0) {
                     appendMessageToLog("Превышено допустимое значение тока")

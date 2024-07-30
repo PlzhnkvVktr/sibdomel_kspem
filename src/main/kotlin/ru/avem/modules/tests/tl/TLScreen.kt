@@ -67,7 +67,9 @@ class TLScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                     }
                     if (viewModel.isDialog.value) {
                         TestDialog(
-                            "виу",
+                            "Через расточку статора протянуть индукторные катушки Wнам и Wизм." +
+                                    "Соединить разъемы соответствующих катушек." +
+                                    "В случае ненадёжного соединения разъёмов оценка состояния сердечника не будет проведена.",
                             true,
                             { viewModel.isDialog.value = false },
                             {

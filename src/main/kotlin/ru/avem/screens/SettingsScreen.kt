@@ -25,6 +25,7 @@ import ru.avem.components.Header
 import ru.avem.components.UserListItem
 import ru.avem.viewmodels.SettingsScreenViewModel
 import ru.avem.components.ScrollableLazyColumn
+import ru.avem.utils.kb
 
 class SettingsScreen: Screen {
 
@@ -50,7 +51,11 @@ class SettingsScreen: Screen {
                         ) {
                             OutlinedTextField(
                                 value = viewModel.textFind.value,
-                                modifier = Modifier.fillMaxWidth(.5f).height(80.dp).padding(10.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth(.5f)
+                                    .height(80.dp)
+                                    .padding(10.dp)
+                                    .kb(),
                                 textStyle = MaterialTheme.typography.h5,
                                 placeholder = {
                                     Text(
@@ -127,7 +132,10 @@ fun Dialog(
                 )
                 OutlinedTextField(
                     value = viewModel.login.value,
-                    modifier = Modifier.fillMaxWidth(.9f),
+                    modifier = Modifier
+                        .fillMaxWidth(.9f)
+                        .kb()
+                    ,
                     textStyle = MaterialTheme.typography.h5,
                     label = { Text("Логин") },
                     placeholder =  {
@@ -143,7 +151,10 @@ fun Dialog(
                 }
                 OutlinedTextField(
                     value = viewModel.password.value,
-                    modifier = Modifier.fillMaxWidth(.9f),
+                    modifier = Modifier
+                        .fillMaxWidth(.9f)
+                        .kb()
+                    ,
                     onValueChange = { viewModel.password.value = it },
                     textStyle = MaterialTheme.typography.h5,
                     label = { Text("Пароль") },
@@ -229,7 +240,10 @@ fun UpdateUserDialog(
                 )
                 OutlinedTextField(
                     value = viewModel.login.value,
-                    modifier = Modifier.fillMaxWidth(.9f),
+                    modifier = Modifier
+                        .fillMaxWidth(.9f)
+                        .kb()
+                    ,
                     textStyle = MaterialTheme.typography.h5,
                     label = { Text("Логин") },
                     placeholder =  {
@@ -242,7 +256,9 @@ fun UpdateUserDialog(
                 )
                 OutlinedTextField(
                     value = viewModel.password.value,
-                    modifier = Modifier.fillMaxWidth(.9f),
+                    modifier = Modifier
+                        .fillMaxWidth(.9f)
+                        .kb(),
                     onValueChange = { viewModel.password.value = it },
                     textStyle = MaterialTheme.typography.h5,
                     label = { Text("Пароль") },

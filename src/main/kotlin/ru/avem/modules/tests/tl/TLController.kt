@@ -239,14 +239,10 @@ suspend fun TestScreenViewModel.startMeasurementTL() {
         testItem.p_steel_tl.value = measuringPf.autoformat()
         testItem.losses_tl.value = measuringPt.autoformat()
         testItem.intensity_tl.value = measuringHf.autoformat()
-        testItem.res_tl.value = if (res) "Соответствует" else "Не соответствует"
+        testItem.res_tl.value = if (res && isTestRunning.value) "Соответствует" else "Не соответствует"
 //        }
 
     } catch (e: Exception) {
         appendMessageToLog("Не удалось рассчитать значения", LogType.ERROR)
     }
-}
-
-fun TestScreenViewModel.calculate() {
-
 }

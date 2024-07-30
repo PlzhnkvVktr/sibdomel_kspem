@@ -62,7 +62,7 @@ class HHandMVZScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                     }
                     if (viewModel.isDialog.value) {
                         TestDialog(
-                            "Connect ONLY the high voltage alligator clip lead (XA1) to the test winding/UI terminal and the test lead (XA2) to the frame and/or parts being tested.",
+                            "Подключить силовые провода (U, V и W) к ОИ.",
                             true,
                             { viewModel.isDialog.value = false },
                             {

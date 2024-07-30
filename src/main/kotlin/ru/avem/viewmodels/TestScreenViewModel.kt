@@ -188,6 +188,7 @@ class TestScreenViewModel : ScreenModel {
                 r60.value = ""
                 kABS.value = ""
                 timeMGR.value = ""
+                res_mgr.value = ""
                 specifiedU_viu.value = ""
                 specifiedI_viu.value = ""
                 specifiedT_viu.value = ""

@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import ru.avem.utils.kb
 import ru.avem.viewmodels.MainScreenViewModel
 
 @Composable
@@ -54,7 +55,9 @@ fun TestObjectCard (viewModel: MainScreenViewModel, factoryNumber: MutableState<
                             )
                             OutlinedTextField(
                                 value = factoryNumber.value,
-                                modifier = Modifier.fillMaxWidth(0.8f),
+                                modifier = Modifier
+                                    .fillMaxWidth(0.8f)
+                                    .kb(),
                                 textStyle = MaterialTheme.typography.h5,
                                 placeholder = {
                                     Text(

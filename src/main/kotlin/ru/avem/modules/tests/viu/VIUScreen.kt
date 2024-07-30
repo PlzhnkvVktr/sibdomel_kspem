@@ -67,7 +67,8 @@ class VIUScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                     }
                     if (viewModel.isDialog.value) {
                         TestDialog(
-                            "виу",
+                            "Подключить ТОЛЬКО Высоковольтный провод (ВИУ) к Испытуемой обмотке/выводу ОИ и Провод измерительный (МЕ) к корпусу и/или частям, относительно которых будет проходить проверка.\n" +
+                                    "Все остальные провода, не должны быть подключены к ОИ.",
                             true,
                             { viewModel.isDialog.value = false },
                             {

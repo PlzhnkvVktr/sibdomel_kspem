@@ -341,6 +341,7 @@ object DBManager {
                         it[i_u_hh] = currentTest.i_u_hh
                         it[i_v_hh] = currentTest.i_v_hh
                         it[i_w_hh] = currentTest.i_w_hh
+                        it[cos_hh] = currentTest.cos_hh
                     }
 
                     //TL
@@ -382,7 +383,7 @@ object DBManager {
                     this.mgrR15 = currentTest.r15
                     this.mgrR60 = currentTest.r60
                     this.mgrkABS = currentTest.kABS
-                    this.mgrResult = currentTest.mgrT
+                    this.mgrResult = currentTest.mgrResult
 
 
                     this.ikasRuv = currentTest.r_uv_ikas
@@ -406,9 +407,10 @@ object DBManager {
                     this.i_u_hh = currentTest.i_u_hh
                     this.i_v_hh = currentTest.i_v_hh
                     this.i_w_hh = currentTest.i_w_hh
+                    this.cos_hh = currentTest.cos_hh
                     this.hhResult = currentTest.hhResult
 
-                    //HH
+                    //TL
                     this.u_set_tl = currentTest.u_set_tl
                     this.u_izm_tl = currentTest.u_izm_tl
                     this.i_u_tl = currentTest.i_u_tl

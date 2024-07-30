@@ -72,8 +72,8 @@ fun TestDialog(
 
 fun getWindowHeight(text: String): Dp =
     when {
-        text.count() > 200 -> 550
-        text.count() in 100..200 -> 450
+        text.count() > 200 -> 600
+        text.count() in 100..200 -> 500
         text.count() < 100 -> 400
         else -> 400
     }.dp
