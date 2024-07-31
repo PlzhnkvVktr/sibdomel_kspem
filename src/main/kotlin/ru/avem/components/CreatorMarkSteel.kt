@@ -8,10 +8,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.avem.viewmodels.EditorMarkSteelScreenViewModel
 import ru.avem.viewmodels.EditorOIScreenViewModel
 
 @Composable
-fun CreatorMarkSteel (viewModel: EditorOIScreenViewModel) {
+fun CreatorMarkSteel (viewModel: EditorMarkSteelScreenViewModel) {
 
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())

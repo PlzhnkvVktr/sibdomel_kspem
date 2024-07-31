@@ -75,7 +75,7 @@ suspend fun TestScreenViewModel.startMeasurementMGR() {
         while (isTestRunning.value && statusMGR != 4 && time-- > 0) {
             delay(1000)
         }
-        appendMessageToLog("Измерение завершено", LogType.MESSAGE)
+        appendMessageToLog("Измерение завершено успешно", LogType.MESSAGE)
         testItem.res_mgr.value = "Измерение завершено"
     } else {
         isTestRunning.value = false

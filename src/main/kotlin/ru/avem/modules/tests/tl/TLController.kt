@@ -47,7 +47,7 @@ suspend fun TestScreenViewModel.startMeasurementTL() {
     var uSpecified: Double = 0.0
     var iSpecified: Double = 0.0
 
-    val vitkovIzm = 20.0
+    val vitkovIzm = 21.0
     val vitkovSil = 21.0
 
     val listI = mutableListOf<Double>()
@@ -72,7 +72,6 @@ suspend fun TestScreenViewModel.startMeasurementTL() {
             0.95
         }
 
-        appendMessageToLog("${testObject.isolation} --- ${testObject.material} ")
         outsideDiametr = testObject.d_outer.toDoubleOrDefault(0.0)
         l = testObject.stator_length.toDoubleOrDefault(0.0)
         h = testObject.height_slot.toDoubleOrDefault(0.0)
@@ -81,13 +80,11 @@ suspend fun TestScreenViewModel.startMeasurementTL() {
         sh = lakt * h * 0.001
         v = lsr * sh
         m = v * p
-        appendMessageToLog("m = $m")
         uSpecified = 4.44 * vitkovIzm * 50 * sh
         iSpecified = intensityMark * Math.PI * (outsideDiametr - h) / vitkovIzm / 1000.0
 
         testItem.u_set_tl.value = uSpecified.af()
 
-        appendMessageToLog("$iSpecified")
         if (uSpecified >= 150) {
             isTestRunning.value = false
             appendMessageToLog("расчетное напряжение ${uSpecified.af()} больше допустимого", LogType.ERROR)
@@ -185,9 +182,6 @@ suspend fun TestScreenViewModel.startMeasurementTL() {
         delay(1000)
     }
     try {
-
-        appendMessageToLog("cos $cosB")
-        appendMessageToLog("u $u_b ")
         val r = 0.135 // активное сопротивление измерительной катушки
 
         val p = pA.value.toDouble()

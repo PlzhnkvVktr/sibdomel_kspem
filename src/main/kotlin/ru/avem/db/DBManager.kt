@@ -64,21 +64,20 @@ object DBManager {
             }
         }
         if (getAllUsers().isEmpty()) {
-            addUser("admin", "888", true)
+            addUser("admin", "avem", true)
         }
         if (getAllTI().isEmpty()) {
             addTI(
                 name = "Test",
-                scheme = true,
+                scheme = false,
                 power = "20",
                 u_linear = "380",
                 i = "20",
-                i_viu = "0.2",
-                i_mz = "60",
+                i_viu = "240",
+                i_mz = "20",
                 u_viu = "1760",
                 u_mgr = "1000",
                 t_viu = "60",
-                t_hh = "60",
                 t_mv = "10",
                 r_max = "200000",
                 r_min = "500",
@@ -86,10 +85,10 @@ object DBManager {
                 r20_min = "0",
                 steel_mark = "2013",
                 intensity = false,
-                d_inside =  "",
-                d_outer =  "",
-                stator_length = "",
-                height_slot = "",
+                d_inside =  "0",
+                d_outer =  "0",
+                stator_length = "0",
+                height_slot = "0",
                 material = false
             )
         }
@@ -180,7 +179,6 @@ object DBManager {
         u_viu: String,
         u_mgr: String,
         t_viu: String,
-        t_hh: String,
         t_mv: String,
         r_max: String,
         r_min: String,
@@ -206,7 +204,6 @@ object DBManager {
                 this.u_viu = u_viu
                 this.u_mgr = u_mgr
                 this.t_viu = t_viu
-                this.t_hh = t_hh
                 this.t_mv = t_mv
                 this.r_max = r_max
                 this.r_min = r_min
@@ -299,7 +296,6 @@ object DBManager {
                     it[specifiedI] = CustomController.testObject.i
 //                    it[specifiedRPM] = CustomController.testObject.specifiedRPM
                     it[specifiedP] = CustomController.testObject.power
-                    it[specifiedIdleTime] = CustomController.testObject.t_hh
 //                    it[specifiedRunningTime] = CustomController.testObject.specifiedRunningTime
                     it[specifiedMgrU] = CustomController.testObject.u_mgr
                     it[specifiedViuU] = CustomController.testObject.u_viu
@@ -370,7 +366,6 @@ object DBManager {
                     this.specifiedI = CustomController.testObject.i
 //                    it[specifiedRPM] = CustomController.testObject.specifiedRPM
                     this.specifiedP = CustomController.testObject.power
-                    this.specifiedIdleTime = CustomController.testObject.t_hh
 //                    it[specifiedRunningTime] = CustomController.testObject.specifiedRunningTime
                     this.specifiedMgrU = CustomController.testObject.u_mgr
                     this.specifiedViuU = CustomController.testObject.u_viu

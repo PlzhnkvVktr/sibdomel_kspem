@@ -17,14 +17,14 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import ru.avem.components.*
 import ru.avem.db.DBManager
-import ru.avem.viewmodels.EditorOIScreenViewModel
+import ru.avem.viewmodels.EditorMarkSteelScreenViewModel
 
 class EditorMarkSteelScreen(): Screen {
 
     @Composable
     override fun Content() {
 
-        val viewModel = rememberScreenModel { EditorOIScreenViewModel() }
+        val viewModel = rememberScreenModel { EditorMarkSteelScreenViewModel() }
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
 
         LifecycleEffect(

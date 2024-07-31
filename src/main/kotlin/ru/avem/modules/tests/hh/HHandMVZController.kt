@@ -35,12 +35,13 @@ suspend fun TestScreenViewModel.startMeasurementHHandMVZ() {
         a_i = i_u.value.toDouble()
         b_i = i_v.value.toDouble()
         c_i = i_w.value.toDouble()
-        u_uv.value = a_u.toString()
-        u_vw.value = b_u.toString()
-        u_wu.value = c_u.toString()
-        i_u.value = a_i.toString()
-        i_v.value = b_i.toString()
-        i_w.value = c_i.toString()
+        var u_uv_res = a_u.toString()
+        var u_vw_res = b_u.toString()
+        var u_wu_res = c_u.toString()
+        var i_u_res = a_i.toString()
+        var i_v_res = b_i.toString()
+        var i_w_res = c_i.toString()
+        var cos_res = cos.value
 
         testItem.u_uv_hh.value = a_u.toString()
         testItem.u_vw_hh.value = b_u.toString()
@@ -66,13 +67,13 @@ suspend fun TestScreenViewModel.startMeasurementHHandMVZ() {
         } else {
             "Успешно"
         }
-        u_uv.value = testItem.u_uv_hh.value
-        u_vw.value = testItem.u_vw_hh.value
-        u_wu.value = testItem.u_wu_hh.value
-        i_u.value = testItem.i_u_hh.value
-        i_v.value = testItem.i_v_hh.value
-        i_w.value = testItem.i_w_hh.value
-        cos.value = testItem.cos_hh.value
+        u_uv.value = u_uv_res
+        u_vw.value = u_vw_res
+        u_wu.value = u_wu_res
+        i_u.value = i_u_res
+        i_v.value = i_v_res
+        i_w.value = i_w_res
+        cos.value = cos_res
 
     } else {
         isTestRunning.value = false

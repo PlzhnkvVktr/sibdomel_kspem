@@ -153,8 +153,8 @@ object CustomController {
             initWatchDogDD2()
             delay(1000)
             CM.startPoll(CM.DeviceID.DD2_1.name, pr102.model.DI_01_16_RAW) { value ->
-                isStartPressed.value = value.toShort() and 1 < 1  // 1  // TODO инвертировать обратно
-                isStopPressed.value = value.toShort() and 2 > 0   // 2
+                isStartPressed.value = value.toShort() and 1 > 0  // 1  // TODO инвертировать обратно
+                isStopPressed.value = value.toShort() and 2 > 1   // 2
                 doorZone.value = value.toShort() and 4 < 1   // 3
 //                             = value.toShort() and 8 > 0   // 4
                 doorSCO.value = value.toShort() and 16 < 1  // 5
@@ -342,8 +342,6 @@ object CustomController {
         }
         CM.startPoll(CM.DeviceID.PAV41.name, parma41.model.I_A_REGISTER) {
             vm.i_u.value = (it.toDouble() * ktrAmperage).af()
-
-            appendMessageToLog(it.af())
             if (isTestRunning.value) {
                 if (it.toDouble() > 6.0) {
                     appendMessageToLog("Превышено допустимое значение тока")

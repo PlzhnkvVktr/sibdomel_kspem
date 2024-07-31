@@ -31,6 +31,7 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
     var i_viu = 0.0
     setVoltage = testObject.u_viu.toDouble()
     val setTime = testObject.t_viu.toDouble()
+    var v_viu_res = ""
 
     if (isTestRunning.value) {
         var timer = 300
@@ -57,7 +58,7 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
 
 
     if (isTestRunning.value) {
-        appendMessageToLog("Инициализация АВЭМ3...", LogType.MESSAGE)
+        appendMessageToLog("Инициализация АВЭМ-3...", LogType.MESSAGE)
         CustomController.pv24.checkResponsibility()
         delay(1000)
 
@@ -67,7 +68,7 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
                 testItem.u_viu.value = voltage.af()
             }
         } else {
-            appendMessageToLog("АВЭМ3 не отвечает", LogType.ERROR)
+            appendMessageToLog("АВЭМ-3 не отвечает", LogType.ERROR)
             isTestRunning.value = false
         }
     }
@@ -152,6 +153,8 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
         } else {
             testItem.res_viu.value = "Прервано"
         }
+        v_viu_res= voltage.af()
+
         testItem.t_viu.value = setTime.toString()
         testItem.u_viu.value = voltage.af()
         addReportVIU()
@@ -168,4 +171,5 @@ suspend fun TestScreenViewModel.startMeasurementVIU() {
     while (voltage > 100) {
         delay(100)
     }
+    testItem.u_viu.value = v_viu_res
 }

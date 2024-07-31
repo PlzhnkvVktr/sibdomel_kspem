@@ -98,7 +98,7 @@ class IKASScreen(private var mainViewModel: MainScreenViewModel) : Test() {
                 }
                 if (viewModel.isDialog.value) {
                 TestDialog(
-                    "икас",
+                    "Подключить силовые провода (U, V и W) к ОИ.",
                     true,
                     { viewModel.isDialog.value = false },
                     {

@@ -16,6 +16,7 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import cafe.adriel.voyager.navigator.Navigator
 import ru.avem.db.DBManager
+import ru.avem.screens.AuthScreen
 import ru.avem.screens.MainScreen
 
 val isTablet = true
@@ -28,6 +29,6 @@ fun main() = application {
         state = rememberWindowState(placement = WindowPlacement.Maximized),
         icon = painterResource("ru/logo/logo.ico")
     ) {
-        Navigator(screen = MainScreen())
+        Navigator(screen = AuthScreen())
     }
 }

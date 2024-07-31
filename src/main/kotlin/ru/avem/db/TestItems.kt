@@ -16,7 +16,6 @@ object TestItems : IntIdTable() {
     val u_viu = varchar("u_viu", 20)
     val u_mgr = varchar("u_mgr", 20)
     val t_viu = varchar("t_viu", 20)
-    val t_hh = varchar("t_hh", 20)
     val t_mv = varchar("t_mv", 20)
     val r_max = varchar("r_max", 20)
     val r_min = varchar("r_min", 20)
@@ -44,7 +43,6 @@ class TestItem(id: EntityID<Int>) : IntEntity(id) {
     var u_viu by TestItems.u_viu
     var u_mgr by TestItems.u_mgr
     var t_viu by TestItems.t_viu
-    var t_hh by TestItems.t_hh
     var t_mv by TestItems.t_mv
     var r_max by TestItems.r_max
     var r_min by TestItems.r_min

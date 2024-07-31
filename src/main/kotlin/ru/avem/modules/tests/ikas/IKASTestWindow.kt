@@ -28,9 +28,9 @@ fun IKASTestWindow (viewModel: TestScreenViewModel) {
             TestWindowTitle("Измеренные значения")
 
             Row(Modifier.background(Color.Gray)) {
-                TableCell(text = "R UV, Ом")
-                TableCell(text = "R VW, Ом")
-                TableCell(text = "R WU, Ом")
+                TableCell(text = "R uv, Ом")
+                TableCell(text = "R vw, Ом")
+                TableCell(text = "R wu, Ом")
             }
             Row() {
                 TableCell(text = viewModel.testItem.r_uv_ikas.value)
@@ -41,9 +41,9 @@ fun IKASTestWindow (viewModel: TestScreenViewModel) {
 
 
             Row(Modifier.background(Color.Gray)) {
-                TableCell(text = "R U, Ом")
-                TableCell(text = "R V, Ом")
-                TableCell(text = "R W, Ом")
+                TableCell(text = "R u, Ом")
+                TableCell(text = "R v, Ом")
+                TableCell(text = "R w, Ом")
             }
             Row() {
                 TableCell(text = viewModel.testItem.calc_u_ikas.value)

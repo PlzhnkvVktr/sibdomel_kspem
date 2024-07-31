@@ -1,6 +1,7 @@
 package ru.avem.viewmodels
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -15,19 +16,11 @@ class EditorOIScreenViewModel : ScreenModel {
     val dialogText = mutableStateOf("Готово")
     var typesTI = DBManager.getAllTI().ifEmpty { listOf("") }
     var selectedTI = mutableStateOf(typesTI.first())
+
     var typesSteel = DBManager.getAllSteelMarks().ifEmpty { listOf("") }
     var selectedSteel = mutableStateOf(typesSteel.first())
-    var typesSteelEditScreen = DBManager.getAllSteelMarks().ifEmpty { listOf("") }
-    var selectedSteelEditScreen = mutableStateOf(typesSteelEditScreen.first())
 
     var addNewTI: MutableState<Boolean> = mutableStateOf(false)
-    var addNewSteel: MutableState<Boolean> = mutableStateOf(false)
-
-    var nameSteel = mutableStateOf("")
-    var densitySteel = mutableStateOf("")
-    var lossesSteel = mutableStateOf("")
-    var intensitySteel = mutableStateOf("")
-    var errorSteel = mutableStateOf("")
 
     var name = mutableStateOf("")
     var scheme = mutableStateOf(true)
@@ -53,15 +46,7 @@ class EditorOIScreenViewModel : ScreenModel {
     var height_slot = mutableStateOf("")
     var material = mutableStateOf(false)
 
-    val marksSteelList = listOf(
-        ParamOI("Название", nameSteel, 1, 200, isString = true),
-        ParamOI("Плотность, кг/м3", densitySteel, 0, 9999),
-        ParamOI("Удельные потери (для 1 Тл при 50 Гц), Вт/кг", lossesSteel, 0, 9999),
-        ParamOI("Напряженность, А/м", intensitySteel, 0, 9999),
-        ParamOI("Допуск годности (больше на), %", errorSteel, 0, 9999),
-    )
-
-    val paramsList = listOf(
+    val paramsList = mutableStateListOf(
         ParamOI("Мощность, кВт", power, 1, 200),
         ParamOI("Напряжение линейное, В", u_linear, 380, 400),
         ParamOI("Ток, А", i, 1, 100),
@@ -72,7 +57,7 @@ class EditorOIScreenViewModel : ScreenModel {
         ParamOI("Сопротивление фазы статора при 20°С максимальное, Ом", r20_max, 0, 999999999),
         ParamOI("Сопротивление фазы статора при 20°С минимальное, Ом", r20_min, 0, 99999999),
         ParamOI("Время испытания ВИУ, сек", t_viu, 0, 3600),
-        ParamOI("Время испытания ХХ, мин", t_hh, 0, 999999999),
+//        ParamOI("Время испытания ХХ, мин", t_hh, 0, 999999999),
         ParamOI("Время испытания МВЗ, сек", t_mv, 0, 60),
         ParamOI("Допустимый ток утечки ВИУ, мА", i_viu, 0, 240),
         ParamOI("Допустимое отклонение токов при МВЗ, %", i_mz, 0, 20),
@@ -93,17 +78,6 @@ class EditorOIScreenViewModel : ScreenModel {
             dialogWindow.value = false
         }
     }
-    fun initSteelMark () {
-        screenModelScope.launch {
-            addNewSteel.value = false
-            val steel = DBManager.getSteelMark(selectedSteelEditScreen.value)
-            nameSteel.value = steel.name
-            densitySteel.value = steel.density
-            lossesSteel.value = steel.losses
-            intensitySteel.value = steel.intensity
-            errorSteel.value = steel.error
-        }
-    }
 
     fun initTestTI () {
         screenModelScope.launch {
@@ -119,7 +93,6 @@ class EditorOIScreenViewModel : ScreenModel {
             u_viu.value = ti.u_viu
             u_mgr.value = ti.u_mgr
             t_viu.value = ti.t_viu
-            t_hh.value = ti.t_hh
             t_mv.value = ti.t_mv
             r_max.value = ti.r_max
             r_min.value = ti.r_min
@@ -137,12 +110,6 @@ class EditorOIScreenViewModel : ScreenModel {
 
     fun clearFields() {
         screenModelScope.launch {
-            nameSteel.value = ""
-            densitySteel.value = ""
-            lossesSteel.value = ""
-            intensitySteel.value = ""
-            errorSteel.value = ""
-
             name.value = ""
             scheme.value = false
             power.value = ""
@@ -175,27 +142,7 @@ class EditorOIScreenViewModel : ScreenModel {
             DBManager.deleteTestItemById(selectedTI.value)
         }
     }
-    fun deleteSteelMark () {
-        screenModelScope.launch {
-            DBManager.deleteSteelMark(selectedSteelEditScreen.value)
-        }
-    }
 
-    fun addNewSteelMark() {
-        screenModelScope.launch {
-            if (!addNewSteel.value) {
-                DBManager.deleteSteelMark(selectedSteelEditScreen.value)
-            }
-            DBManager.addSteelMark(
-                nameSteel.value,
-                densitySteel.value,
-                lossesSteel.value,
-                intensitySteel.value,
-                errorSteel.value,
-            )
-        }
-        addNewSteel.value = false
-    }
     fun addNewTI () {
         screenModelScope.launch {
             if (!addNewTI.value) {
@@ -212,13 +159,13 @@ class EditorOIScreenViewModel : ScreenModel {
                 u_viu.value,
                 u_mgr.value,
                 t_viu.value,
-                t_hh.value,
+//                t_hh.value,
                 t_mv.value,
                 r_max.value,
                 r_min.value,
                 r20_max.value,
                 r20_min.value,
-                selectedSteel.value,
+                "2013", // TODO
                 isolation.value,
                 d_inside.value,
                 d_outer.value,

@@ -3,6 +3,7 @@ package ru.avem.modules.tests.tl
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -46,6 +47,18 @@ fun TLTestWindow (viewModel: TestScreenViewModel) {
                 TableCell(text = viewModel.testItem.p_steel_tl.value)
                 TableCell(text = viewModel.testItem.intensity_tl.value)
                 TableCell(text = viewModel.testItem.losses_tl.value)
+            }
+        }
+
+        Column (
+            modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.End
+        ) {
+            Row(Modifier.background(Color.Gray).fillMaxWidth(0.5f)) {
+                TableCell(text = "Результат")
+            }
+            Row(Modifier.fillMaxWidth(0.5f)) {
+                TableCell(text = viewModel.testItem.res_tl.value)
             }
         }
     }
